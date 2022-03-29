@@ -1,4 +1,5 @@
+using UnityEngine;
 public interface IDamageable
 {
-    public void OnPlayerCollide();
+    public void OnPlayerCollide(GameObject other);
 }

@@ -1,5 +1,5 @@
 using UnityEngine;
-using DevZhrssh.Singletons;
+using DevZhrssh.Managers;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,10 +30,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 originalScale;
     private float current, target;
 
-
     // System
     Camera cam;
     private Rigidbody2D rb;
+
+    // Audio Manager
+    private AudioManager audioManager;
 
     private void Start()
     {
@@ -50,6 +52,9 @@ public class PlayerController : MonoBehaviour
             timeControl = GetComponent<TimeControl>();
 
         originalScale = transform.localScale;
+
+        if (audioManager == null)
+            audioManager = GameObject.FindObjectOfType<AudioManager>();
     }
 
     private void Update()
@@ -70,20 +75,20 @@ public class PlayerController : MonoBehaviour
             // On start touch
             if (Input.touches[i].phase == TouchPhase.Began)
             {
-                OnStartTouch(Input.touches[0].position);
+                OnStartTouch(Input.touches[i].position);
                 timeControl.SlowTime(timeSlowAmount);
             }
 
             // On hold touch
             if (Input.touches[i].phase == TouchPhase.Moved)
             {
-                OnHoldTouch(Input.touches[0].position);
+                OnHoldTouch(Input.touches[i].position);
             }
 
             // On end touch
             if (Input.touches[i].phase == TouchPhase.Ended)
             {
-                OnEndTouch(Input.touches[0].position);
+                OnEndTouch(Input.touches[i].position);
                 timeControl.EndSlowTime();
             }
         }
@@ -115,7 +120,7 @@ public class PlayerController : MonoBehaviour
         trajectoryLine.EndLine();
 
         // Play when making new move
-        AudioManager.instance.Play("Move");
+        audioManager.Play("Move");
     }
 
     private void FixedUpdate()
