@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float power;
     [SerializeField] private Vector2 minPower;
     [SerializeField] private Vector2 maxPower;
+    [SerializeField] private bool isControlInverted;
 
     // Drag and Shoot
     private Vector2 force;
@@ -102,10 +103,10 @@ public class PlayerController : MonoBehaviour
     private void OnHoldTouch(Vector2 position)
     {
         currentPoint = cam.ScreenToWorldPoint(new Vector3(position.x, position.y, 15));
-        trajectoryLine.RenderLine(startPoint, currentPoint);
+        trajectoryLine.RenderLine((isControlInverted) ? currentPoint : startPoint, (isControlInverted) ? startPoint : currentPoint); // check if the player wants their controls inverted
 
         // rotate towards the direction of movement
-        HandleRotation(startPoint - currentPoint);
+        HandleRotation((isControlInverted) ? currentPoint - startPoint : startPoint - endPoint); // inverted
     }
 
     private void OnEndTouch(Vector2 position)
@@ -113,8 +114,8 @@ public class PlayerController : MonoBehaviour
         endPoint = cam.ScreenToWorldPoint(new Vector3(position.x, position.y, 15));
 
         force = new Vector2(
-            Mathf.Clamp(startPoint.x - endPoint.x, minPower.x, maxPower.x),
-            Mathf.Clamp(startPoint.y - endPoint.y, minPower.y, maxPower.y)
+            Mathf.Clamp((isControlInverted) ? endPoint.x - startPoint.x : startPoint.x - endPoint.x, minPower.x, maxPower.x), // inverted
+            Mathf.Clamp((isControlInverted) ? endPoint.y - startPoint.y : startPoint.y - endPoint.y, minPower.y, maxPower.y)
         );
 
         trajectoryLine.EndLine();

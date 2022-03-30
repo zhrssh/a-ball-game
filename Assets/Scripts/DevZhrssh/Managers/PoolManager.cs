@@ -3,6 +3,7 @@ using DevZhrssh.Managers.Components;
 
 namespace DevZhrssh.Managers
 {
+    [RequireComponent(typeof(ObjectPoolingComponent))]
     public class PoolManager : MonoBehaviour
     {
         // Requires ObjectPooling utility as component
@@ -18,6 +19,11 @@ namespace DevZhrssh.Managers
             {
                 objectPooling.CreatePool(pref, poolSize);
             }
+        }
+
+        public GameObject[] GetPrefabs()
+        {
+            return prefabs;
         }
     }
 }
