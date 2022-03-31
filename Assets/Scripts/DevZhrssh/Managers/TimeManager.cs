@@ -16,6 +16,8 @@ namespace DevZhrssh.Managers
         public delegate void OnTimeReachedLimit();
         public event OnTimeReachedLimit OnTimeReachedLimitCallback;
 
+        public bool runTime = true;
+
         private void Start()
         {
             timeComponent = GetComponent<TimeComponent>();
@@ -24,17 +26,28 @@ namespace DevZhrssh.Managers
 
         private void Update()
         {
-            timeComponent.AddTime(Time.deltaTime);
-            if (timeComponent.currentTime <= 0f) // time reached zero
-            {
-                if (OnTimeReachedZeroCallback != null)
-                    OnTimeReachedZeroCallback.Invoke();
-            }
+            if (!runTime) return; // if time has not yet started, return
 
-            if (timeComponent.currentTime >= timeComponent.maxTime) // time reached limit
+            timeComponent.AddTime(Time.unscaledDeltaTime); // TODO: still needs fixing because time starts while game is loading
+            if (timeComponent.isCountdown) // if timer is a countdown
             {
-                if (OnTimeReachedLimitCallback != null)
-                    OnTimeReachedLimitCallback.Invoke();
+                if (timeComponent.currentTime <= 0f) // time reached zero
+                {
+                    if (OnTimeReachedZeroCallback != null)
+                        OnTimeReachedZeroCallback.Invoke();
+
+                    runTime = false; // stop time
+                }
+            }
+            else // if timer is a stopwatch
+            {
+                if (timeComponent.currentTime >= timeComponent.maxTime) // time reached limit
+                {
+                    if (OnTimeReachedLimitCallback != null)
+                        OnTimeReachedLimitCallback.Invoke();
+
+                    runTime = false; // stop time
+                }
             }
         }
     }

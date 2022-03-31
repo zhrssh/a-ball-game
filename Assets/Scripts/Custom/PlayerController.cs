@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 maxPower;
     [SerializeField] private bool isControlInverted;
 
+    // Game Manager
+    private GameManager gameManager;
+
     // Drag and Shoot
     private Vector2 force;
     public Vector3 startPoint { get; private set; }
@@ -56,6 +59,9 @@ public class PlayerController : MonoBehaviour
 
         if (audioManager == null)
             audioManager = GameObject.FindObjectOfType<AudioManager>();
+
+        if (gameManager == null)
+            gameManager = GameObject.FindObjectOfType<GameManager>();
     }
 
     private void Update()
