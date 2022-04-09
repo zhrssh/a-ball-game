@@ -6,12 +6,14 @@ namespace DevZhrssh.Managers.Components
 {
     public class ScoreComponent : MonoBehaviour
     {
-        // Can be attached to Game Manager
-        private GameManager gameManager;
+        private PlayerDeathComponent playerDeathComponent;
 
         private void Start()
         {
-            gameManager = GetComponent<GameManager>();
+            playerDeathComponent = GameObject.FindObjectOfType<PlayerDeathComponent>();
+            playerDeathComponent.onPlayerDeathCallback += CheckHighScore; // checks high score everytime the player dies
+
+            ResetScore();
         }
 
         // Scoring System
@@ -19,8 +21,16 @@ namespace DevZhrssh.Managers.Components
         public int playerScore
         {
             get { return _playerScore; }
+            set { _playerScore = value; }
         }
-        
+
+        private int _highScore = 0;
+        public int highScore
+        {
+            get { return _highScore; }
+            set { _highScore = value; }
+        }
+
         public void AddScore(int scoreToAdd)
         {
             // Add score to the current score
@@ -31,6 +41,14 @@ namespace DevZhrssh.Managers.Components
         {
             // Resets the score back to zero
             _playerScore = 0;
+        }
+
+        public void CheckHighScore()
+        {
+            if (_playerScore > _highScore)
+                _highScore = _playerScore;
+            else
+                return;
         }
     }
 }

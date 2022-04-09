@@ -2,19 +2,20 @@ using UnityEngine;
 using DevZhrssh.Managers.Components;
 public class Coin : Entity
 {
-    private ScoreComponent scoreComponent;
+    [SerializeField] private int coinAmount = 1;
+    private CoinCount coinCountScript;
 
     protected override void Start()
     {
         base.Start();
-        scoreComponent = GameObject.FindObjectOfType<ScoreComponent>();
+        coinCountScript = GameObject.FindObjectOfType<CoinCount>();
     }
 
     // This is the class that gives the player points
     public override void OnPlayerCollide(GameObject other)
     {
         // TODO: Add score to player
-        scoreComponent.AddScore(10); // Gives one point to player
+        coinCountScript.AddCoin(coinAmount);
         base.OnPlayerCollide(other);
     }
 }

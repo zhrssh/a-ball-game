@@ -10,6 +10,8 @@ namespace DevZhrssh.Managers
         {
             public string name;
             public AudioClip clip;
+            public bool isLooping;
+            public bool playOnAwake;
         }
 
         private Dictionary<string, GameObject> _sounds = new Dictionary<string, GameObject>();
@@ -24,7 +26,9 @@ namespace DevZhrssh.Managers
                 obj.transform.parent = transform;
                 AudioSource source = obj.AddComponent<AudioSource>();
                 source.clip = audio.clip;
-                source.playOnAwake = false;
+                source.loop = audio.isLooping;
+                if (audio.playOnAwake)
+                    source.Play();
 
                 if (!_sounds.ContainsKey(audio.name))
                     _sounds.Add(audio.name, obj);
@@ -45,6 +49,12 @@ namespace DevZhrssh.Managers
         {
             if (_sounds.ContainsKey(name) && _sounds[name] != null)
                 _sounds[name].GetComponent<AudioSource>()?.Play();
+        }
+
+        public void Stop(string name)
+        {
+            if (_sounds.ContainsKey(name) && _sounds[name] != null)
+                _sounds[name].GetComponent<AudioSource>()?.Stop();
         }
     }
 
