@@ -10,9 +10,22 @@ public class Entity : PooledObject, IDamageable
     // Audio manager
     private AudioManager audioManager;
 
+    // Despawn Timer
+    [SerializeField] protected float despawnTime = 5f;
+    private float currentTime = 0;
+
     protected virtual void Start()
     {
         audioManager = GameObject.FindObjectOfType<AudioManager>();
+    }
+
+    protected virtual void Update()
+    {
+        currentTime += Time.deltaTime;
+        if (currentTime > despawnTime)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public override void OnObjectReuse()

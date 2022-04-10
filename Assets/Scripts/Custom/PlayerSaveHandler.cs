@@ -31,7 +31,6 @@ public class PlayerSaveHandler : MonoBehaviour
         SaveData data = saveSystem.Load();
         if (data != null)
         {
-            Debug.Log("Load Successful!");
             scoreComponent.highScore = data.highScore;
             coinCountScript.SetCointCount(data.currency);
         }
