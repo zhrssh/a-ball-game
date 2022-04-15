@@ -7,6 +7,7 @@ namespace DevZhrssh.Managers.Components
     // Must be in tandem with pool manager and pool component
     public class SpawnComponent : MonoBehaviour
     {
+        private GameManager gameManager;
         private PoolManager poolManager;
         private ObjectPoolingComponent poolComponent;
 
@@ -26,10 +27,30 @@ namespace DevZhrssh.Managers.Components
 
         private void Start()
         {
+            gameManager = GameObject.FindObjectOfType<GameManager>();
+
+            if (gameManager != null)
+            {
+                gameManager.onGameStartCallback += StartSpawning;
+                gameManager.onGameUnpauseCallback += StartSpawning;
+                gameManager.onGamePauseCallback += StopSpawning;
+                gameManager.onGameEndCallback += StopSpawning;
+            }
+
             poolManager = GetComponent<PoolManager>();
             poolComponent = GetComponent<ObjectPoolingComponent>();
 
             prefabs = poolManager.GetPrefabs();
+        }
+
+        private void StartSpawning()
+        {
+            canSpawn = true;
+        }
+
+        private void StopSpawning()
+        {
+            canSpawn = false;
         }
 
         private void Update()

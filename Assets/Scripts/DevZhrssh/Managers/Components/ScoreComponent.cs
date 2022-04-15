@@ -31,10 +31,19 @@ namespace DevZhrssh.Managers.Components
             set { _highScore = value; }
         }
 
+        private int _scoreMultiplier = 1;
+        public int scoreMultiplier
+        {
+            get { return _scoreMultiplier; }
+            set { _scoreMultiplier = value; }
+        }
+
+        // Public Functions
+
         public void AddScore(int scoreToAdd)
         {
             // Add score to the current score
-            _playerScore = _playerScore + scoreToAdd;
+            _playerScore = _playerScore + ( scoreToAdd * _scoreMultiplier );
         }
 
         public void ResetScore()

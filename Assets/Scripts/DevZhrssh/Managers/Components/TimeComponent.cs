@@ -6,7 +6,7 @@ namespace DevZhrssh.Managers.Components
     {
         // Time
         [Header("Time")]
-        [SerializeField] private float startTime;
+        public float startTime;
         public float maxTime;
         public bool isCountdown;
 

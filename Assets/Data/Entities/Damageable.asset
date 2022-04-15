@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedc837921cb09a4ca5b6bb6e81b4fd2, type: 3}
+  m_Name: Damageable
+  m_EditorClassIdentifier: 
+  entityType: 1
+  sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  color: {r: 1, g: 0.1745283, b: 0.83560055, a: 1}
+  particles: {fileID: 1572502639010103975, guid: 15d0295d351de02479daeb490e3c2410, type: 3}
+  audioOnCollide: Death
+  score: 1000
+  coinAmount: 0

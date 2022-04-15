@@ -6,6 +6,7 @@ namespace DevZhrssh.Managers
     [RequireComponent(typeof(TimeComponent))]
     public class TimeManager : MonoBehaviour
     {
+        private GameManager gameManager;
         private TimeComponent timeComponent;
 
         // When timer reached zero we call subscribed functions
@@ -20,8 +21,28 @@ namespace DevZhrssh.Managers
 
         private void Start()
         {
+            gameManager = GameObject.FindObjectOfType<GameManager>();
+
+            if (gameManager != null)
+            {
+                gameManager.onGameStartCallback += StartTime;
+                gameManager.onGameUnpauseCallback += StartTime;
+                gameManager.onGamePauseCallback += StopTime;
+                gameManager.onGameEndCallback += StopTime;
+            }
+
             timeComponent = GetComponent<TimeComponent>();
             timeComponent.ResetTime();
+        }
+
+        private void StartTime()
+        {
+            runTime = true;
+        }
+
+        private void StopTime()
+        {
+            runTime = false;
         }
 
         private void Update()
