@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DevZhrssh.Managers.Components;
+using DevZhrssh.Managers;
 
 public class ComboSystem : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class ComboSystem : MonoBehaviour
     [SerializeField] private UIZoom zoom;
 
     private int _currentCombo;
+
+    // Game Manager
+    private GameManager gameManager;
+
     public int currentCombo
     {
         get { return _currentCombo; }
@@ -34,12 +39,14 @@ public class ComboSystem : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameObject.FindObjectOfType<GameManager>();
         scoreComponent = GameObject.FindObjectOfType<ScoreComponent>();
         player = GameObject.FindObjectOfType<PlayerCollision>();
     }
 
     private void Update()
     {
+        if (gameManager.isGamePaused || gameManager.hasGameEnded) return; // stops comboing if game is paused or ended
         if (isComboing)
         {
             if (_comboTime > 0)

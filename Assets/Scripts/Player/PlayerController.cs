@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 currentPoint { get; private set; }
 
     // Trajectory Line
-    private TrajectoryLine trajectoryLine;
+    private Trajectory trajectoryLine;
 
     // Time Control
     [Header("Time Control")]
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
             rb = GetComponent<Rigidbody2D>();
 
         if (trajectoryLine == null)
-            trajectoryLine = GetComponent<TrajectoryLine>();
+            trajectoryLine = GetComponent<Trajectory>();
 
         if (timeControl == null)
             timeControl = GetComponent<TimeControl>();
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
             HandleRotation(travelDirection);
         }
 
-        if (Input.touchCount > 1) return;
+        if (Input.touchCount > 1) return; // prevents multiple touches
         for (int i = 0; i < Input.touchCount; i++)
         {
             // On start touch
@@ -111,8 +111,9 @@ public class PlayerController : MonoBehaviour
         currentPoint = cam.ScreenToWorldPoint(new Vector3(position.x, position.y, 15));
         trajectoryLine.RenderLine((isControlInverted) ? currentPoint : startPoint, (isControlInverted) ? startPoint : currentPoint); // check if the player wants their controls inverted
 
-        // rotate towards the direction of movement
-        HandleRotation((isControlInverted) ? currentPoint - startPoint : startPoint - endPoint); // inverted
+        //// rotate towards the direction of movement
+        // REMOVED: Visual bug when aiming the ball
+        // HandleRotation((isControlInverted) ? currentPoint - startPoint : startPoint - endPoint); // inverted
     }
 
     private void OnEndTouch(Vector2 position)

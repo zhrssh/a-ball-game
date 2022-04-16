@@ -8,7 +8,9 @@ public class Player : MonoBehaviour
     private PlayerCollision playerCollision;
     private PlayerController playerController;
     private TimeControl timeControl;
-    private TrajectoryLine trajectoryLine;
+    private Trajectory trajectoryLine;
+
+    private SpriteRenderer spriteRenderer;
 
     // Player Death
     [Header("Player Death")]
@@ -19,6 +21,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
         audioManager = GameObject.FindObjectOfType<AudioManager>();
         playerDeathComponent = GameObject.FindObjectOfType<PlayerDeathComponent>();
 
@@ -26,7 +30,7 @@ public class Player : MonoBehaviour
         playerCollision = GetComponent<PlayerCollision>();
         playerController = GetComponent<PlayerController>();
         timeControl = GetComponent<TimeControl>();
-        trajectoryLine = GetComponent<TrajectoryLine>();
+        trajectoryLine = GetComponent<Trajectory>();
         
         if (gameManager != null)
         {
@@ -56,7 +60,12 @@ public class Player : MonoBehaviour
     {
         // Handles player death
         isPlayerDead = true;
-        Instantiate(deathEffect, transform.position, Quaternion.identity); // Instantiates death particle
+
+        // Spawns particles based on color
+        ParticleSystem particles = Instantiate(deathEffect, transform.position, Quaternion.identity); // Instantiates death particle
+        ParticleSystem.MainModule ma = particles.main;
+        ma.startColor = spriteRenderer.color;
+
         audioManager.Play("Death"); // Plays death audio
         playerDeathComponent.OnPlayerDeath();// Call Player Death Callback
         gameObject.SetActive(false); // Disables the player

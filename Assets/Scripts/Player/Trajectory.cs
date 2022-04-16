@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class TrajectoryLine : MonoBehaviour
+public class Trajectory : MonoBehaviour
 {
     private LineRenderer lineRenderer;
-
     private void Start()
     {
         if (lineRenderer == null)

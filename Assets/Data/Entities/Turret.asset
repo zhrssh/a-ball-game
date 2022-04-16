@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cedc837921cb09a4ca5b6bb6e81b4fd2, type: 3}
-  m_Name: Damageable
+  m_Name: Turret
   m_EditorClassIdentifier: 
   entityType: 1
-  sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  color: {r: 1, g: 0.1745283, b: 0.83560055, a: 1}
-  particles: {fileID: 1572502639010103975, guid: 15d0295d351de02479daeb490e3c2410, type: 3}
+  sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  color: {r: 1, g: 0.17890635, b: 0, a: 1}
+  particles: {fileID: 1822447360026924963, guid: db1bf26126fbb0945b21ac65dcd7911b, type: 3}
   audioOnCollide: Death
-  score: 1000
-  coinAmount: 0
+  score: 1500
+  coinAmount: 5
+  indicator: {fileID: 3075790879847220474, guid: bb5c3980a94e2ff4284d05909eacaae4, type: 3}

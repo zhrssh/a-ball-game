@@ -17,7 +17,7 @@ public class PlayerCollision : MonoBehaviour
         if (collision.GetComponent<Entity>() as IDamageable != null)
         {
             // Play camera shake when hitting enemies
-            if (collision.GetComponent<Entity>().entityClass.entityType != EntityClass.EntityType.Collectible) // If the player collides to a coin don't shake camera
+            if (collision.GetComponent<Entity>().entityClass.entityType != EntityClass.EntityType.Collectible && gameObject.activeSelf) // If the player collides to a coin don't shake camera
                 StartCoroutine(cameraShake.Shake(shakeDuration, shakeMagnitude));
 
             // Calls the enemy script OnPlayerCollide

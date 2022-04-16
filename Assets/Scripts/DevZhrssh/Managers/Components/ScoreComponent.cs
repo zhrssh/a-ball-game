@@ -6,12 +6,13 @@ namespace DevZhrssh.Managers.Components
 {
     public class ScoreComponent : MonoBehaviour
     {
-        private PlayerDeathComponent playerDeathComponent;
+        private GameManager gameManager;
 
         private void Start()
         {
-            playerDeathComponent = GameObject.FindObjectOfType<PlayerDeathComponent>();
-            playerDeathComponent.onPlayerDeathCallback += CheckHighScore; // checks high score everytime the player dies
+            gameManager = GetComponent<GameManager>();
+            if (gameManager != null)
+                gameManager.onGameEndCallback += CheckHighScore; // Checks highscore every end of game
 
             ResetScore();
         }

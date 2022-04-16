@@ -13,4 +13,5 @@ public class EntityClass : ScriptableObject
     public string audioOnCollide;
     public int score;
     public int coinAmount;
+    public GameObject indicator;
 }

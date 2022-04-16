@@ -1,6 +1,7 @@
 using UnityEngine;
 using DevZhrssh.Managers;
 using DevZhrssh.Managers.Components;
+using System.Collections;
 
 public class Entity : PooledObject, IDamageable
 {
@@ -9,6 +10,7 @@ public class Entity : PooledObject, IDamageable
 
     // Despawn Timer
     [SerializeField] protected float despawnTime = 5f;
+    [SerializeField] protected float indicatorDespawnTime = 1f;
     private float currentTime = 0;
 
     // Score System
@@ -42,7 +44,7 @@ public class Entity : PooledObject, IDamageable
         circleCollider = GetComponent<CircleCollider2D>();
         if (circleCollider != null)
         {
-            circleCollider.radius = entityClass.sprite.bounds.size.magnitude / 2f;
+            circleCollider.radius = entityClass.sprite.bounds.size.magnitude / 6f;
         }
     }
 
@@ -51,13 +53,18 @@ public class Entity : PooledObject, IDamageable
         currentTime += Time.deltaTime;
         if (currentTime > despawnTime)
         {
+            // Spawns particles based on entity color
+            ParticleSystem particles = Instantiate(entityClass.particles, transform.position, Quaternion.identity);
+            ParticleSystem.MainModule ma = particles.main;
+            ma.startColor = entityClass.color;
+
             gameObject.SetActive(false);
         }
     }
 
-    public override void OnObjectReuse()
+    public override void OnObjectReuse(Vector3 position, Quaternion rotation)
     {
-        // TODO: Animations
+        
     }
 
     public virtual void OnPlayerCollide(GameObject other)
@@ -78,7 +85,11 @@ public class Entity : PooledObject, IDamageable
                 break;
         }
         
-        Instantiate(entityClass.particles, transform.position, Quaternion.identity);
+        // Spawns particles based on entity color
+        ParticleSystem particles = Instantiate(entityClass.particles, transform.position, Quaternion.identity);
+        ParticleSystem.MainModule ma = particles.main;
+        ma.startColor = entityClass.color;
+
         audioManager.Play(entityClass.audioOnCollide);
 
         // When the player is still alive and active we start combo

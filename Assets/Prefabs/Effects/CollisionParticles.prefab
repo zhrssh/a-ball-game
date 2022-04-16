@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1822447360026924963}
   - component: {fileID: 2870297831260427360}
   m_Layer: 0
-  m_Name: Pickup
+  m_Name: CollisionParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

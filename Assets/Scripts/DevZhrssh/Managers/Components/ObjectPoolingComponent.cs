@@ -67,7 +67,7 @@ namespace DevZhrssh.Managers.Components
             public void Reuse(Vector3 position, Quaternion rotation)
             {
                 if (hasPooledObjectScript)
-                    pooledObjectScript.OnObjectReuse();
+                    pooledObjectScript.OnObjectReuse(position, rotation);
 
                 gameObject.SetActive(true);
                 transform.position = position;
@@ -84,7 +84,7 @@ namespace DevZhrssh.Managers.Components
     // Script that is meant for the pooled object (optional)
     public class PooledObject : MonoBehaviour
     {
-        public virtual void OnObjectReuse()
+        public virtual void OnObjectReuse(Vector3 position, Quaternion rotation)
         {
             // meant to be overriden
         }

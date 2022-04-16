@@ -12,6 +12,7 @@ namespace DevZhrssh.Managers
             public AudioClip clip;
             public bool isLooping;
             public bool playOnAwake;
+            [Range(0 , 1)] public float volume;
         }
 
         private Dictionary<string, GameObject> _sounds = new Dictionary<string, GameObject>();
@@ -27,6 +28,8 @@ namespace DevZhrssh.Managers
                 AudioSource source = obj.AddComponent<AudioSource>();
                 source.clip = audio.clip;
                 source.loop = audio.isLooping;
+                source.volume = audio.volume;
+
                 if (audio.playOnAwake)
                     source.Play();
 
