@@ -10,7 +10,6 @@ public class Entity : PooledObject, IDamageable
 
     // Despawn Timer
     [SerializeField] protected float despawnTime = 5f;
-    [SerializeField] protected float indicatorDespawnTime = 1f;
     private float currentTime = 0;
 
     // Score System
@@ -54,7 +53,7 @@ public class Entity : PooledObject, IDamageable
         if (currentTime > despawnTime)
         {
             // Spawns particles based on entity color
-            ParticleSystem particles = Instantiate(entityClass.particles, transform.position, Quaternion.identity);
+            ParticleSystem particles = Instantiate(entityClass.particlesOnCollide, transform.position, Quaternion.identity);
             ParticleSystem.MainModule ma = particles.main;
             ma.startColor = entityClass.color;
 
@@ -71,13 +70,20 @@ public class Entity : PooledObject, IDamageable
     {
         switch (entityClass.entityType)
         {
+            // If the entity is a collectible
             case EntityClass.EntityType.Collectible:
                 scoreComponent.AddScore(entityClass.score);
                 coinCount.AddCoin(entityClass.coinAmount);
                 break;
+            // If the entity is a powerup, checks for the powerup script and call the function
+            case EntityClass.EntityType.PowerUp:
+                GetComponent<PowerUp>()?.UsePowerUp(other);
+                break;
+            // If the entity is a damageable
             case EntityClass.EntityType.Damageable:
                 scoreComponent.AddScore(entityClass.score);
                 break;
+            // If the entity kills the player
             case EntityClass.EntityType.Deadly:
                 other.GetComponent<Player>()?.Death();
                 break;
@@ -86,7 +92,7 @@ public class Entity : PooledObject, IDamageable
         }
         
         // Spawns particles based on entity color
-        ParticleSystem particles = Instantiate(entityClass.particles, transform.position, Quaternion.identity);
+        ParticleSystem particles = Instantiate(entityClass.particlesOnCollide, transform.position, Quaternion.identity);
         ParticleSystem.MainModule ma = particles.main;
         ma.startColor = entityClass.color;
 

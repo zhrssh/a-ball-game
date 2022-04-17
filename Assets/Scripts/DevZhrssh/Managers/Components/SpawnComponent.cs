@@ -68,7 +68,7 @@ namespace DevZhrssh.Managers.Components
                     Vector3 position = Vector3.zero;
                     if (spawnWithinCameraView)
                     {
-                        position = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0 + padding.x, Screen.width - padding.x), Random.Range(0 + padding.y, Screen.height - padding.y), Camera.main.farClipPlane / 2));
+                        position = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0 + padding.x, Screen.width - padding.x), Random.Range(0 + padding.y, Screen.height - padding.y), 1f));
                     }
                     else
                     {

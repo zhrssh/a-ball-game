@@ -7,18 +7,19 @@ using DevZhrssh.Managers;
 public class ComboSystem : MonoBehaviour
 {
     // Time before combo expires
-    public int comboLimit;
+    public int comboLimit = 12;
     public float comboDuration;
     public bool isComboing;
 
     // UI Zoom
     [SerializeField] private UIZoom zoom;
 
-    private int _currentCombo;
-
     // Game Manager
     private GameManager gameManager;
 
+    public int comboMultiplier; // Used by powerups
+
+    private int _currentCombo;
     public int currentCombo
     {
         get { return _currentCombo; }
@@ -30,9 +31,6 @@ public class ComboSystem : MonoBehaviour
         get { return _comboTime; }
     }
 
-    // Reference to player
-    private PlayerCollision player;
-
     // Reference to score
     private ScoreComponent scoreComponent;
    
@@ -41,7 +39,6 @@ public class ComboSystem : MonoBehaviour
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
         scoreComponent = GameObject.FindObjectOfType<ScoreComponent>();
-        player = GameObject.FindObjectOfType<PlayerCollision>();
     }
 
     private void Update()
@@ -52,7 +49,7 @@ public class ComboSystem : MonoBehaviour
             if (_comboTime > 0)
             {
                 // Combo
-                scoreComponent.scoreMultiplier = _currentCombo; // sets the score multiplier
+                scoreComponent.scoreMultiplier = _currentCombo * ((comboMultiplier > 1) ? comboMultiplier : 1); // sets the score multiplier
                 _comboTime -= Time.unscaledDeltaTime;
             }
             else
@@ -71,7 +68,7 @@ public class ComboSystem : MonoBehaviour
         if (!isComboing)
             isComboing = true;
 
-        // Adds a limit to the combo
+        // Adds combo
         if (_currentCombo < comboLimit)
             _currentCombo++;
 

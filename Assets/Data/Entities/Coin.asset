@@ -15,7 +15,8 @@ MonoBehaviour:
   entityType: 0
   sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   color: {r: 0.94509804, g: 0.76862746, b: 0.05882353, a: 1}
-  particles: {fileID: 1822447360026924963, guid: db1bf26126fbb0945b21ac65dcd7911b, type: 3}
+  particlesOnCollide: {fileID: 1822447360026924963, guid: db1bf26126fbb0945b21ac65dcd7911b, type: 3}
   audioOnCollide: Pickup
   score: 100
   coinAmount: 1
+  indicator: {fileID: 0}

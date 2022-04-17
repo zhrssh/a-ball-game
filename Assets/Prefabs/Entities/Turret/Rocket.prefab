@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 5935590318192590293}
   - component: {fileID: 5935590318192590289}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Rocket
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseTarget: 1
-  rotationSpeed: 20
+  rotationSpeed: 7
   projectileSpeed: 10
 --- !u!50 &5935590318192590251
 Rigidbody2D:

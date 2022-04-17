@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private AudioManager audioManager;
     private PlayerDeathComponent playerDeathComponent;
     public bool isPlayerDead { get; private set; }
+    public bool isInvulnerable;
 
     private void Start()
     {
@@ -58,6 +59,9 @@ public class Player : MonoBehaviour
     }
     public void Death()
     {
+        // Won't die if player is invulnerable
+        if (isInvulnerable) return;
+
         // Handles player death
         isPlayerDead = true;
 

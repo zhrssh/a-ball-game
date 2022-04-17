@@ -35,12 +35,12 @@ namespace DevZhrssh.Managers
             timeComponent.ResetTime();
         }
 
-        private void StartTime()
+        public void StartTime()
         {
             runTime = true;
         }
 
-        private void StopTime()
+        public void StopTime()
         {
             runTime = false;
         }

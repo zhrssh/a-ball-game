@@ -1561,9 +1561,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 972149738}
     - target: {fileID: 2330866292953768874, guid: ea0d684a3f7230942bddfa6efe12685d, type: 3}
+      propertyPath: progressBar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2330866292953768874, guid: ea0d684a3f7230942bddfa6efe12685d, type: 3}
       propertyPath: loadingScreen
       value: 
       objectReference: {fileID: 728919518}
+    - target: {fileID: 2330866292953768874, guid: ea0d684a3f7230942bddfa6efe12685d, type: 3}
+      propertyPath: timeoutScreen
+      value: 
+      objectReference: {fileID: 972149738}
     - target: {fileID: 2330866292953768875, guid: ea0d684a3f7230942bddfa6efe12685d, type: 3}
       propertyPath: m_RootOrder
       value: 2

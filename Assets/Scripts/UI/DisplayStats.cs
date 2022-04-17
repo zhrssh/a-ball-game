@@ -20,7 +20,6 @@ public class DisplayStats : MonoBehaviour
 
     // Time
     [SerializeField] private TextMeshProUGUI time;
-    [SerializeField] private Image radialTime;
     private TimeComponent timeComponent;
 
     // Combo
@@ -52,12 +51,6 @@ public class DisplayStats : MonoBehaviour
         // Timer
         if (time != null)
             time.text = Mathf.FloorToInt(timeComponent.currentTime).ToString();
-
-        if (radialTime != null)
-        {
-            float percent = timeComponent.currentTime / timeComponent.startTime;
-            radialTime.fillAmount = percent;
-        }
 
         // Coincount
         if (coinCount != null)

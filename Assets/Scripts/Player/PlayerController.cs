@@ -1,5 +1,6 @@
 using UnityEngine;
 using DevZhrssh.Managers;
+using DevZhrssh.Utilities;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 minPower;
     [SerializeField] private Vector2 maxPower;
     [SerializeField] private bool isControlInverted;
+
+    // Camera Shake
+    [SerializeField] private CameraShake cameraShake;
 
     // Game Manager
     private GameManager gameManager;
@@ -34,20 +38,26 @@ public class PlayerController : MonoBehaviour
     private Vector3 originalScale;
     private float current, target;
 
+    // For Powerups
+    public bool isControlEnabled;
+
     // System
     Camera cam;
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
+    public Rigidbody2D rb { get { return _rb; } }
 
     // Audio Manager
     private AudioManager audioManager;
 
     private void Start()
     {
+        isControlEnabled = true;
+
         if (cam == null)
             cam = Camera.main;
 
-        if (rb == null)
-            rb = GetComponent<Rigidbody2D>();
+        if (_rb == null)
+            _rb = GetComponent<Rigidbody2D>();
 
         if (trajectoryLine == null)
             trajectoryLine = GetComponent<Trajectory>();
@@ -70,13 +80,29 @@ public class PlayerController : MonoBehaviour
         HandleStretching();
 
         // Handle rotation when moving
-        if (Input.touchCount <= 0)
+        Vector2 travelDirection = _rb.velocity;
+        HandleRotation(travelDirection);
+
+        if (!isControlEnabled)
         {
-            Vector2 travelDirection = rb.velocity;
-            HandleRotation(travelDirection);
+            if (Input.touchCount > 0)
+            {
+                foreach (Touch touch in Input.touches)
+                {
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        StartCoroutine(cameraShake.Shake(0.1f, 0.2f));
+                        audioManager.Play("Error");
+                    }
+                }
+            }
+                
+            return;
         }
 
         if (Input.touchCount > 1) return; // prevents multiple touches
+
+        // Detects touch
         for (int i = 0; i < Input.touchCount; i++)
         {
             // On start touch
@@ -135,7 +161,7 @@ public class PlayerController : MonoBehaviour
     {
         if (force.magnitude > 0)
         {
-            rb.velocity = force * power;
+            _rb.velocity = force * power;
             force = Vector2.zero;
         }
     }
@@ -152,7 +178,7 @@ public class PlayerController : MonoBehaviour
     private void HandleStretching()
     {
         // Handle scale when moving
-        if (rb.velocity.magnitude > speedThreshold)
+        if (_rb.velocity.magnitude > speedThreshold)
             target = 1;
         else
             target = 0;
