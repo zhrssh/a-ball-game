@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedc837921cb09a4ca5b6bb6e81b4fd2, type: 3}
   m_Name: Collectible
   m_EditorClassIdentifier: 
-  entityType: 0
+  entityType: 2
   sprite: {fileID: 21300000, guid: df25b34757ccfa046af2dce8941da733, type: 3}
   color: {r: 1, g: 0.1745283, b: 0.83560055, a: 1}
   particlesOnCollide: {fileID: 1822447360026924963, guid: db1bf26126fbb0945b21ac65dcd7911b, type: 3}

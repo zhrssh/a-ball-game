@@ -83,8 +83,13 @@ public class PlayerController : MonoBehaviour
         Vector2 travelDirection = _rb.velocity;
         HandleRotation(travelDirection);
 
+        // When the controller is disabled
         if (!isControlEnabled)
         {
+            // Stops slow time
+            timeControl.EndSlowTime();
+
+            // Checks if the player tries to move the ball
             if (Input.touchCount > 0)
             {
                 foreach (Touch touch in Input.touches)

@@ -7,21 +7,28 @@ namespace DevZhrssh.Managers
     public class PoolManager : MonoBehaviour
     {
         // Requires ObjectPooling utility as component
-        [SerializeField] GameObject[] prefabs;
+        [SerializeField] private PoolObjects[] prefabs;
         [SerializeField] int poolSize;
 
         private ObjectPoolingComponent objectPooling;
 
+        [System.Serializable]
+        public class PoolObjects
+        {
+            public GameObject gameObject;
+            [Range(0, 1)] public float chanceOfSpawning;
+        }
+
         private void Start()
         {
             objectPooling = GetComponent<ObjectPoolingComponent>();
-            foreach(GameObject pref in prefabs)
+            foreach(PoolObjects pref in prefabs)
             {
-                objectPooling.CreatePool(pref, poolSize);
+                objectPooling.CreatePool(pref.gameObject, poolSize);
             }
         }
 
-        public GameObject[] GetPrefabs()
+        public PoolObjects[] GetPrefabs()
         {
             return prefabs;
         }

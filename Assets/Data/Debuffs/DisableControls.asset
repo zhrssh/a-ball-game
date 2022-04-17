@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityType: 1
   sprite: {fileID: -2135585597343286014, guid: eed45a33cd08446c8b88325cf82fc52f, type: 3}
-  color: {r: 0.5471698, g: 0, b: 0.051021647, a: 1}
+  color: {r: 0.9056604, g: 0.16660735, b: 0.23523352, a: 1}
   particlesOnCollide: {fileID: 1822447360026924963, guid: db1bf26126fbb0945b21ac65dcd7911b, type: 3}
   audioOnCollide: Debuff
-  score: 100
+  score: 0
   coinAmount: 0
   indicator: {fileID: 0}

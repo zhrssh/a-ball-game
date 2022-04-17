@@ -77,6 +77,7 @@ public class Entity : PooledObject, IDamageable
                 break;
             // If the entity is a powerup, checks for the powerup script and call the function
             case EntityClass.EntityType.PowerUp:
+                scoreComponent.AddScore(entityClass.score);
                 GetComponent<PowerUp>()?.UsePowerUp(other);
                 break;
             // If the entity is a damageable

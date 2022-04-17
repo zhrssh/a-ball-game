@@ -60,6 +60,15 @@ public class DisplayStats : MonoBehaviour
         if (comboProgressBar != null)
         {
             float percent = comboSystem.comboTime / comboSystem.comboDuration;
+            if (comboSystem.currentCombo > 0)
+                comboProgressBar.GetComponent<Image>().color = Color.green;
+
+            if (comboSystem.currentCombo > 3)
+                comboProgressBar.GetComponent<Image>().color = Color.yellow;
+
+            if (comboSystem.currentCombo > 7)
+                comboProgressBar.GetComponent<Image>().color = Color.red;
+
             comboProgressBar.localScale = new Vector3(percent, comboProgressBar.localScale.y, comboProgressBar.localScale.z);
         }
 

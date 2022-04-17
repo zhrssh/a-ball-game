@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PowerUpSystem : MonoBehaviour
 {
+    [SerializeField] private GameObject debuffBorder;
     private List<string> powerUps = new List<string>();
 
     struct PowerUp
@@ -108,11 +109,13 @@ public class PowerUpSystem : MonoBehaviour
     private IEnumerator DisableControls(PowerUp powerUp)
     {
         // Disable Controls
+        debuffBorder.SetActive(true);
         playerController.isControlEnabled = false;
 
         yield return new WaitForSeconds(powerUp.duration);
 
         // Enable Controls
+        debuffBorder.SetActive(false);
         playerController.isControlEnabled = true;
 
         // When time runs out we remove it from list

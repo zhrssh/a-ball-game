@@ -25,7 +25,7 @@ namespace DevZhrssh.Managers.Components
 
         public bool canSpawn = true;
 
-        private GameObject[] prefabs;
+        private PoolManager.PoolObjects[] prefabs;
 
         // coroutine handler
         private bool isCoroutineRunning;
@@ -79,6 +79,7 @@ namespace DevZhrssh.Managers.Components
                     if (CheckSpawnConditions(position) == false)
                         return;
 
+                    // Spawns object
                     StartCoroutine(SpawnObject(
                         prefabs[Random.Range(0, prefabs.Length)],
                         position,
@@ -97,10 +98,14 @@ namespace DevZhrssh.Managers.Components
                 return true;
         }
 
-        private IEnumerator SpawnObject(GameObject prefab, Vector3 position, Quaternion rotation)
+        private IEnumerator SpawnObject(PoolManager.PoolObjects prefab, Vector3 position, Quaternion rotation)
         {
             isCoroutineRunning = true;
-            poolComponent.ReuseObject(prefab, position, rotation);
+
+            // Spawns object depending on chance
+            if (Random.value <= prefab.chanceOfSpawning)
+                poolComponent.ReuseObject(prefab.gameObject, position, rotation);
+
             yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
             isCoroutineRunning = false;
         }

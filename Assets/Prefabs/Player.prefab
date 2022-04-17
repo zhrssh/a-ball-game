@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5935590318192590249}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &5935590317207623752
 TrailRenderer:
@@ -167,7 +167,7 @@ Transform:
   m_LocalScale: {x: 0.14238559, y: 0.14238559, z: 0.14238559}
   m_Children: []
   m_Father: {fileID: 5935590318192590249}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5935590317262766135
 SpriteRenderer:
@@ -256,9 +256,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6365972175166198173}
   - {fileID: 5935590317262766132}
   - {fileID: 5935590317207623753}
+  - {fileID: 6365972175166198173}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffect: {fileID: 1822447360026924963, guid: db1bf26126fbb0945b21ac65dcd7911b, type: 3}
+  isInvulnerable: 0
 --- !u!114 &5935590318192590248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,10 +292,12 @@ MonoBehaviour:
   minPower: {x: -5, y: -5}
   maxPower: {x: 5, y: 5}
   isControlInverted: 0
+  cameraShake: {fileID: 0}
   timeSlowAmount: 0.05
   stretchAmount: {x: 0.65, y: 1.35, z: 1}
   speedThreshold: 10
   speedOfScaling: 2
+  isControlEnabled: 0
 --- !u!114 &5935590318192590294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,7 +524,7 @@ Transform:
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 5935590318192590249}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6365972175166198172
 SpriteRenderer:
