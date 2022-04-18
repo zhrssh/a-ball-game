@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using DevZhrssh.Managers.Components;
 using DevZhrssh.SaveSystem;
+using UnityEngine.Audio;
 
 public class PlayerSaveHandler : MonoBehaviour
 {
+    public AudioMixer audioMixer;
+
     private SaveSystem saveSystem;
 
     private ScoreComponent scoreComponent;
@@ -14,6 +17,14 @@ public class PlayerSaveHandler : MonoBehaviour
 
     private void Start()
     {
+        // Load Settings
+        float volume = PlayerPrefs.GetFloat("volume", 0);
+        audioMixer.SetFloat("volume", volume);
+
+        int qualityIndex = PlayerPrefs.GetInt("quality", 3);
+        QualitySettings.SetQualityLevel(qualityIndex);
+
+
         playerDeathComponent = GameObject.FindObjectOfType<PlayerDeathComponent>();
         saveSystem = GameObject.FindObjectOfType<SaveSystem>();
         scoreComponent = GameObject.FindObjectOfType<ScoreComponent>();

@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float power;
     [SerializeField] private Vector2 minPower;
     [SerializeField] private Vector2 maxPower;
-    [SerializeField] private bool isControlInverted;
+    public bool isControlInverted;
 
     // Camera Shake
     [SerializeField] private CameraShake cameraShake;
@@ -72,6 +72,9 @@ public class PlayerController : MonoBehaviour
 
         if (gameManager == null)
             gameManager = GameObject.FindObjectOfType<GameManager>();
+
+        // Load Controller Settings
+        isControlInverted = (PlayerPrefs.GetInt("controls", 0) == 0) ? false : true;
     }
 
     private void Update()

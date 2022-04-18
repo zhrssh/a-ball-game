@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 5600522429959553751, guid: 9a016d4ec9d37ec43978fa644bf73b49, type: 3}
-  duration: 5
+  duration: 3
 --- !u!212 &6900260670147837651
 SpriteRenderer:
   m_ObjectHideFlags: 0

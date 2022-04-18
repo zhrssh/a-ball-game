@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Entity", menuName = "Entity/New Entity")]
 public class EntityClass : ScriptableObject
 {
-    public enum EntityType { Collectible, PowerUp, Damageable, Deadly }
+    public enum EntityType { Collectible, PowerUp, Damageable, Deadly, Ally }
     public EntityType entityType;
     public Sprite sprite;
     public Color color;

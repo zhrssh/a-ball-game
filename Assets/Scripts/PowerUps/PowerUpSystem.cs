@@ -7,6 +7,9 @@ using UnityEngine;
 public class PowerUpSystem : MonoBehaviour
 {
     [SerializeField] private GameObject debuffBorder;
+    [SerializeField] private GameObject rocketPowerup;
+    [SerializeField] private float castRadius = 10f;
+
     private List<string> powerUps = new List<string>();
 
     struct PowerUp
@@ -87,13 +90,54 @@ public class PowerUpSystem : MonoBehaviour
         powerUps.Remove(powerUp.name);
     }
 
-    private IEnumerator FreezeTime(PowerUp powerUp)
+    private IEnumerator SpawnRockets(PowerUp powerUp)
     {
-        timeManager.runTime = false;
-        yield return new WaitForSeconds(powerUp.duration);
-        timeManager.runTime = true;
+        float time = powerUp.duration;
 
-        // When time runs out we remove it from list
+        // Allows rockets to spawn when the effect is still in duration
+        while (time > 0)
+        {
+            // Searches for nearest entities
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(player.transform.position, castRadius);
+
+            // Limits to spawn count every second
+            int spawnCount = (int)powerUp.duration;
+
+            // Works like a countdown
+            time -= 1f;
+
+            // Checks if the collider has entity script and spawns rockets simultaniously based on number of duration
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                // Prevent null reference
+                if (colliders[i] == null) break;
+
+                // If there are no more spawns
+                if (spawnCount <= 0) break;
+
+                // If the collider is an entity that kills the player, we spawn a rocket
+                if (colliders[i].GetComponent<Entity>()?.entityClass.entityType == EntityClass.EntityType.Deadly)
+                {
+                    // Spawns the rocket
+                    GameObject rocket = Instantiate(rocketPowerup, player.transform.position, Quaternion.identity);
+
+                    // Sets target on the first up to how many is in the duration
+                    rocket.GetComponent<Projectile>()?.SetTarget(colliders[i].gameObject);
+
+                    // Audio
+                    audioManager.Play("Shoot");
+
+                    // Limit Spawns
+                    spawnCount--;
+                }
+
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
+
+        // After executing we remove it from list
         powerUps.Remove(powerUp.name);
     }
 

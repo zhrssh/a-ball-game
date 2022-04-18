@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedc837921cb09a4ca5b6bb6e81b4fd2, type: 3}
+  m_Name: Rocket Ally
+  m_EditorClassIdentifier: 
+  entityType: 4
+  sprite: {fileID: 21300000, guid: 9fb6be8946086344a98e0fba70db2620, type: 3}
+  color: {r: 0.20392156, g: 1, b: 0.26254466, a: 1}
+  particlesOnCollide: {fileID: 1822447360026924963, guid: db1bf26126fbb0945b21ac65dcd7911b, type: 3}
+  audioOnCollide: Death
+  score: 0
+  coinAmount: 0
+  indicator: {fileID: 0}

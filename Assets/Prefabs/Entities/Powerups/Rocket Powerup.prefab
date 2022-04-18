@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 5935590318192590293}
   - component: {fileID: 5935590318192590289}
   m_Layer: 0
-  m_Name: Rocket
+  m_Name: Rocket Powerup
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,8 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04a2eb144950084094f7addbaf802f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  despawnTime: 4
-  entityClass: {fileID: 11400000, guid: 30e61a60d7ab98d4d9849e1f5f1c4a18, type: 2}
+  despawnTime: 5
+  entityClass: {fileID: 11400000, guid: 3e7f34aa6367ce0468dad828532c3299, type: 2}
 --- !u!114 &-6912138490443731335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,8 +253,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseTarget: 1
-  rotationSpeed: 7
-  projectileSpeed: 12
+  rotationSpeed: 20
+  projectileSpeed: 20
 --- !u!50 &5935590318192590251
 Rigidbody2D:
   serializedVersion: 4

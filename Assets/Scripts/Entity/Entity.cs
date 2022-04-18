@@ -88,16 +88,12 @@ public class Entity : PooledObject, IDamageable
             case EntityClass.EntityType.Deadly:
                 other.GetComponent<Player>()?.Death();
                 break;
+            case EntityClass.EntityType.Ally:
+                // we'll not do anything to the player
+                return; 
             default:
                 break;
         }
-        
-        // Spawns particles based on entity color
-        ParticleSystem particles = Instantiate(entityClass.particlesOnCollide, transform.position, Quaternion.identity);
-        ParticleSystem.MainModule ma = particles.main;
-        ma.startColor = entityClass.color;
-
-        audioManager.Play(entityClass.audioOnCollide);
 
         // When the player is still alive and active we start combo
         if (other.activeSelf == true)
@@ -105,6 +101,18 @@ public class Entity : PooledObject, IDamageable
             comboSystem.StartCombo(); // Starts the combo or add to combo
         }
 
+        // Disables entity
+        DestroyEntity();
+    }
+
+    public void DestroyEntity()
+    {
+        // Spawns particles based on entity color
+        ParticleSystem particles = Instantiate(entityClass.particlesOnCollide, transform.position, Quaternion.identity);
+        ParticleSystem.MainModule ma = particles.main;
+        ma.startColor = entityClass.color;
+
+        audioManager.Play(entityClass.audioOnCollide);
         gameObject.SetActive(false);
     }
 }

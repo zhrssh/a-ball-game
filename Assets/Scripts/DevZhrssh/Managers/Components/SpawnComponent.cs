@@ -30,6 +30,9 @@ namespace DevZhrssh.Managers.Components
         // coroutine handler
         private bool isCoroutineRunning;
 
+        // Spawn Buildup
+        [SerializeField] private float buildupRate;
+
         private void Start()
         {
             gameManager = GameObject.FindObjectOfType<GameManager>();
@@ -58,10 +61,25 @@ namespace DevZhrssh.Managers.Components
             canSpawn = false;
         }
 
+        private void HandleBuildUp()
+        {
+            foreach (PoolManager.PoolObjects prefab in prefabs)
+            {
+                if (prefab.chanceOfSpawning < 1)
+                {
+                    // Adds buildup
+                    prefab.chanceOfSpawning += (Time.deltaTime * buildupRate) / 100f;
+                }
+            }
+        }
+
         private void Update()
         {
             if (canSpawn)
             {
+                // Handle Buildup
+                HandleBuildUp();
+
                 // Spawns enemy at random range
                 if (!isCoroutineRunning)
                 {
@@ -80,11 +98,17 @@ namespace DevZhrssh.Managers.Components
                         return;
 
                     // Spawns object
-                    StartCoroutine(SpawnObject(
-                        prefabs[Random.Range(0, prefabs.Length)],
-                        position,
-                        Quaternion.identity
-                        ));
+                    PoolManager.PoolObjects prefab = prefabs[Random.Range(0, prefabs.Length)];
+                    
+                    // Only spawns if this returns true
+                    if (Random.value <= prefab.chanceOfSpawning)
+                    {
+                        StartCoroutine(SpawnObject(
+                            prefab,
+                            position,
+                            Quaternion.identity
+                            ));
+                    }
                 }
             }
         }
@@ -102,9 +126,8 @@ namespace DevZhrssh.Managers.Components
         {
             isCoroutineRunning = true;
 
-            // Spawns object depending on chance
-            if (Random.value <= prefab.chanceOfSpawning)
-                poolComponent.ReuseObject(prefab.gameObject, position, rotation);
+            // Spawns Object
+            poolComponent.ReuseObject(prefab.gameObject, position, rotation);
 
             yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
             isCoroutineRunning = false;
