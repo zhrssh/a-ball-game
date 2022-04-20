@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 0}
-  progressBar: {fileID: 0}
   pauseScreen: {fileID: 0}
   deathScreen: {fileID: 0}
   timeoutScreen: {fileID: 0}

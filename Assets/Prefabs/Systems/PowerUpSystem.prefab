@@ -9,7 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5283715397354110577}
+  - component: {fileID: 1047741963174554907}
   - component: {fileID: 5283715397354110590}
+  - component: {fileID: 5283715397122991032}
+  - component: {fileID: 5283715397122991033}
+  - component: {fileID: 5283715397122991034}
   m_Layer: 0
   m_Name: PowerUpSystem
   m_TagString: Untagged
@@ -31,6 +35,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1047741963174554907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5283715397354110576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87a054c4e4d4054e93a5a1b259404c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerups:
+  - {fileID: 11400000, guid: 47b20ecec8af1f74c91aba67b41af72e, type: 2}
+  - {fileID: 11400000, guid: d41b24e23461c1443bb4d8de3e58e1d4, type: 2}
+  - {fileID: 11400000, guid: 8fb3cfac86326814ca0f7c6cb3a99b88, type: 2}
+  - {fileID: 11400000, guid: 139ad611cf147644bb4642b9a95e5629, type: 2}
+  template: {fileID: 0}
+  parent: {fileID: 0}
 --- !u!114 &5283715397354110590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,5 +64,65 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2de6d0355561b704ea1c70d6c54f40cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debuffBorder: {fileID: 0}
+  rocketPowerup: {fileID: 5935590318192590254, guid: dc915d0571a9aec46812b3eb30ec2c89, type: 3}
+  castRadius: 20
+--- !u!114 &5283715397122991032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5283715397354110576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194530ab3fc9abf459dd30f81c4f3596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpawnDelay: 3
+  maxSpawnDelay: 10
+  minPosition: {x: 0, y: 0, z: 0}
+  maxPosition: {x: 0, y: 0, z: 0}
+  spawnWithinCameraView: 1
+  padding: {x: 100, y: 100}
+  spawnRadius: 2
+  canSpawn: 1
+  buildupRate: 1
+--- !u!114 &5283715397122991033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5283715397354110576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7857c647444bbf34e828fce4e400acf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - gameObject: {fileID: 6900260670147837650, guid: b9266c653a1abf74eb641a8e2f519680, type: 3}
+    chanceOfSpawning: 0.1
+  - gameObject: {fileID: 6900260670147837650, guid: 412f287988d42e744bb9fe721a6861b9, type: 3}
+    chanceOfSpawning: 0.25
+  - gameObject: {fileID: 6900260670147837650, guid: 7ff9c9ba354b2ad4684a6449a360ab5f, type: 3}
+    chanceOfSpawning: 0.25
+  - gameObject: {fileID: 6900260670147837650, guid: b1cde62ab52a4c64eafbdd80a3f30193, type: 3}
+    chanceOfSpawning: 0.5
+  - gameObject: {fileID: 6900260670147837650, guid: 705e1858b4909f643bb3cc26ee558e5d, type: 3}
+    chanceOfSpawning: 0.5
+  poolSize: 10
+--- !u!114 &5283715397122991034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5283715397354110576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3c201ff1b2884f4cb2805322c04a999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

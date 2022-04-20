@@ -16,7 +16,7 @@ namespace DevZhrssh.Managers
         public class PoolObjects
         {
             public GameObject gameObject;
-            [Range(0, 1)] public float chanceOfSpawning;
+            public float chanceOfSpawning;
         }
 
         private void Start()

@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1377042521334733252}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -48,11 +48,39 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 508e18d57d418414e8d9bf01363a2911, type: 3}
     isLooping: 0
     playOnAwake: 0
+    volume: 1
   - name: Move
     clip: {fileID: 8300000, guid: c97e810df4617b346a43c320993865b5, type: 3}
     isLooping: 0
     playOnAwake: 0
-  - name: Score
+    volume: 0.75
+  - name: Pickup
     clip: {fileID: 8300000, guid: 6ef999b47c3714c4f9f843c7f3089069, type: 3}
     isLooping: 0
     playOnAwake: 0
+    volume: 1
+  - name: Powerup
+    clip: {fileID: 8300000, guid: ee43d3f95aa4cc342bb03e75775cdb18, type: 3}
+    isLooping: 0
+    playOnAwake: 0
+    volume: 0.75
+  - name: Shoot
+    clip: {fileID: 8300000, guid: 8ae1a916f35d71f469947605e4f9905d, type: 3}
+    isLooping: 0
+    playOnAwake: 0
+    volume: 0.35
+  - name: Debuff
+    clip: {fileID: 8300000, guid: 9c1f7b328e129384a8d4c8d714e4ce7f, type: 3}
+    isLooping: 0
+    playOnAwake: 0
+    volume: 0.75
+  - name: Error
+    clip: {fileID: 8300000, guid: 56d782e54e818cd42b973d5993e852d9, type: 3}
+    isLooping: 0
+    playOnAwake: 0
+    volume: 0.75
+  - name: BGM
+    clip: {fileID: 8300000, guid: 8c050a4a7a9cbc049acc51bde0425d9d, type: 3}
+    isLooping: 1
+    playOnAwake: 1
+    volume: 0.07

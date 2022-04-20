@@ -9,14 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cedc837921cb09a4ca5b6bb6e81b4fd2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ca5e530f9b273c4fae487d555bdb78f, type: 3}
   m_Name: ExtendTime
   m_EditorClassIdentifier: 
   entityType: 1
-  sprite: {fileID: -2135585597343286014, guid: eed45a33cd08446c8b88325cf82fc52f, type: 3}
-  color: {r: 1, g: 0, b: 0.6180086, a: 1}
+  sprite: {fileID: 21300000, guid: 38201cc9807c5584bae4659665008b51, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   particlesOnCollide: {fileID: 1822447360026924963, guid: db1bf26126fbb0945b21ac65dcd7911b, type: 3}
   audioOnCollide: Powerup
   score: 100
   coinAmount: 0
   indicator: {fileID: 0}
+  effect: {fileID: 5600522429959553751, guid: 9a016d4ec9d37ec43978fa644bf73b49, type: 3}
+  duration: 5

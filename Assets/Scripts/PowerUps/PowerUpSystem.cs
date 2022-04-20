@@ -6,17 +6,15 @@ using UnityEngine;
 
 public class PowerUpSystem : MonoBehaviour
 {
+    [Header("System")]
     [SerializeField] private GameObject debuffBorder;
     [SerializeField] private GameObject rocketPowerup;
     [SerializeField] private float castRadius = 10f;
 
     private List<string> powerUps = new List<string>();
 
-    struct PowerUp
-    {
-        public string name;
-        public float duration;
-    }
+    // Power up display
+    private PowerUpDisplay powerUpDisplay;
 
     // Audio
     private AudioManager audioManager;
@@ -30,6 +28,8 @@ public class PowerUpSystem : MonoBehaviour
 
     private void Start()
     {
+        powerUpDisplay = GetComponent<PowerUpDisplay>();
+
         audioManager = GameObject.FindObjectOfType<AudioManager>();
 
         player = GameObject.FindObjectOfType<Player>();
@@ -41,58 +41,66 @@ public class PowerUpSystem : MonoBehaviour
         timeComponent = timeManager.GetComponent<TimeComponent>();
     }
 
-    public void UsePowerUp(string name, float duration)
+    public void UsePowerUp(PowerUpData powerUpData)
     {
-        if (!powerUps.Contains(name))
+        if (!powerUps.Contains(powerUpData.name))
         {
-            powerUps.Add(name);
+            powerUps.Add(powerUpData.name);
 
-            // Create a new struct to pass on to the coroutine
-            PowerUp powerUp = new PowerUp();
-            powerUp.name = name;
-            powerUp.duration = duration;
-
-            StartCoroutine(name, powerUp); // Starts the corresponding effect
+            StartCoroutine(powerUpData.name, powerUpData); // Starts the corresponding effect
         }
         else
         {
             // Restarts the coroutine
-            StopCoroutine(name);
-
-            // Create a new struct to pass on to the coroutine
-            PowerUp powerUp = new PowerUp();
-            powerUp.name = name;
-            powerUp.duration = duration;
-
-            StartCoroutine(name, powerUp);
+            StopCoroutine(powerUpData.name);
+            StartCoroutine(powerUpData.name, powerUpData);
         }
     }
 
     // Different Power Up functions
 
-    private IEnumerator DoublePoints(PowerUp powerUp)
+    private IEnumerator DoublePoints(PowerUpData powerUp)
     {
         comboSystem.comboMultiplier = 2;
+
+        // Displays powerup
+        powerUpDisplay.DisplayPowerup(powerUp.name);
+
         yield return new WaitForSeconds(powerUp.duration);
+
+        // Hides powerup
+        powerUpDisplay.HidePowerup(powerUp.name);
+
         comboSystem.comboMultiplier = 1;
 
         // When time runs out we remove it from list
         powerUps.Remove(powerUp.name);
     }
 
-    private IEnumerator Invulnerability(PowerUp powerUp)
+    private IEnumerator Invulnerability(PowerUpData powerUp)
     {
         player.isInvulnerable = true;
+
+        // Displays powerup
+        powerUpDisplay.DisplayPowerup(powerUp.name);
+
         yield return new WaitForSeconds(powerUp.duration);
+
+        // Hides powerup
+        powerUpDisplay.HidePowerup(powerUp.name);
+
         player.isInvulnerable = false;
 
         // When time runs out we remove it from list
         powerUps.Remove(powerUp.name);
     }
 
-    private IEnumerator SpawnRockets(PowerUp powerUp)
+    private IEnumerator SpawnRockets(PowerUpData powerUp)
     {
         float time = powerUp.duration;
+
+        // Displays powerup
+        powerUpDisplay.DisplayPowerup(powerUp.name);
 
         // Allows rockets to spawn when the effect is still in duration
         while (time > 0)
@@ -137,11 +145,14 @@ public class PowerUpSystem : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
+        // Hides powerup
+        powerUpDisplay.HidePowerup(powerUp.name);
+
         // After executing we remove it from list
         powerUps.Remove(powerUp.name);
     }
 
-    private IEnumerator ExtendTime(PowerUp powerUp)
+    private IEnumerator ExtendTime(PowerUpData powerUp)
     {
         timeComponent.AddTime(-powerUp.duration); // We subtract because the current time is a countdown
         yield return null;
@@ -150,13 +161,19 @@ public class PowerUpSystem : MonoBehaviour
         powerUps.Remove(powerUp.name);
     }
 
-    private IEnumerator DisableControls(PowerUp powerUp)
+    private IEnumerator DisableControls(PowerUpData powerUp)
     {
         // Disable Controls
         debuffBorder.SetActive(true);
         playerController.isControlEnabled = false;
 
+        // Displays powerup
+        powerUpDisplay.DisplayPowerup(powerUp.name);
+
         yield return new WaitForSeconds(powerUp.duration);
+
+        // Hides powerup
+        powerUpDisplay.HidePowerup(powerUp.name);
 
         // Enable Controls
         debuffBorder.SetActive(false);

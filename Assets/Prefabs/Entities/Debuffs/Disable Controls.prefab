@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   despawnTime: 7
-  entityClass: {fileID: 11400000, guid: 6d8082d7bbef98c4799501c6f2e8202f, type: 2}
+  entityClass: {fileID: 11400000, guid: 139ad611cf147644bb4642b9a95e5629, type: 2}
 --- !u!114 &6900260670147837654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,8 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf33d55c488c7e6428bce04ac305230c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 5600522429959553751, guid: 9a016d4ec9d37ec43978fa644bf73b49, type: 3}
-  duration: 1.5
 --- !u!212 &6900260670147837651
 SpriteRenderer:
   m_ObjectHideFlags: 0

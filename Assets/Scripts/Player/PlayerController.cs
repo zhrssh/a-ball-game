@@ -145,6 +145,18 @@ public class PlayerController : MonoBehaviour
         currentPoint = cam.ScreenToWorldPoint(new Vector3(position.x, position.y, 15));
         trajectoryLine.RenderLine((isControlInverted) ? currentPoint : startPoint, (isControlInverted) ? startPoint : currentPoint); // check if the player wants their controls inverted
 
+/*        // Handles trajectory line
+        Vector3 direction = (!isControlInverted) ? startPoint - currentPoint : currentPoint - startPoint;
+        direction = new Vector3(direction.x, direction.y, 0);
+
+        float distance = direction.magnitude;
+        distance = Mathf.Clamp(distance, 0, maxPower.magnitude);
+
+        direction.Normalize();
+
+        trajectoryLine.RenderLine(transform.position, transform.position + (direction * distance));
+*/
+
         //// rotate towards the direction of movement
         // REMOVED: Visual bug when aiming the ball
         // HandleRotation((isControlInverted) ? currentPoint - startPoint : startPoint - endPoint); // inverted
