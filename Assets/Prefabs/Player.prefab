@@ -297,7 +297,7 @@ MonoBehaviour:
   stretchAmount: {x: 0.65, y: 1.35, z: 1}
   speedThreshold: 10
   speedOfScaling: 2
-  isControlEnabled: 0
+  isControlEnabled: 1
 --- !u!114 &5935590318192590294
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -83,4 +83,4 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8c050a4a7a9cbc049acc51bde0425d9d, type: 3}
     isLooping: 1
     playOnAwake: 1
-    volume: 0.07
+    volume: 0.1

@@ -32,7 +32,7 @@ namespace DevZhrssh.Managers
 
         private void Start()
         {
-            Advertisement.Initialize(gameId); // Android ID
+            Advertisement.Initialize(gameId, true, this); // Android ID
         }
 
         public void PlayAd()

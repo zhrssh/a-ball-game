@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 minPower;
     [SerializeField] private Vector2 maxPower;
     public bool isControlInverted;
+    public bool isPlayerForMainMenu;
 
     // Camera Shake
     [SerializeField] private CameraShake cameraShake;
@@ -51,8 +52,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        isControlEnabled = true;
-
         if (cam == null)
             cam = Camera.main;
 
@@ -90,10 +89,11 @@ public class PlayerController : MonoBehaviour
         if (!isControlEnabled)
         {
             // Stops slow time
-            timeControl.EndSlowTime();
+            if (timeControl != null)
+                timeControl.EndSlowTime();
 
             // Checks if the player tries to move the ball
-            if (Input.touchCount > 0)
+            if (Input.touchCount > 0 && isPlayerForMainMenu == false)
             {
                 foreach (Touch touch in Input.touches)
                 {
@@ -117,7 +117,9 @@ public class PlayerController : MonoBehaviour
             if (Input.touches[i].phase == TouchPhase.Began)
             {
                 OnStartTouch(Input.touches[i].position);
-                timeControl.SlowTime(timeSlowAmount);
+
+                if (timeControl != null)
+                    timeControl.SlowTime(timeSlowAmount);
             }
 
             // On hold touch
@@ -130,7 +132,9 @@ public class PlayerController : MonoBehaviour
             if (Input.touches[i].phase == TouchPhase.Ended)
             {
                 OnEndTouch(Input.touches[i].position);
-                timeControl.EndSlowTime();
+
+                if (timeControl != null)
+                    timeControl.EndSlowTime();
             }
         }
     }

@@ -38,8 +38,9 @@ namespace DevZhrssh.Managers.Components
             {
                 // Dequeue and enqueue allows the obj to be placed on the last index of the queue
                 ObjectInstance obj = poolDictionary[prefabKey].Dequeue();
-                poolDictionary[prefabKey].Enqueue(obj);
                 obj.Reuse(position, rotation);
+
+                poolDictionary[prefabKey].Enqueue(obj);
             }
         }
 

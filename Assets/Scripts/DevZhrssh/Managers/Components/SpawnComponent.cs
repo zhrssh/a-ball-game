@@ -31,6 +31,7 @@ namespace DevZhrssh.Managers.Components
         private bool isCoroutineRunning;
 
         // Spawn Buildup
+        [SerializeField] private bool canBuildUp;
         [SerializeField] private float buildupRate;
 
         private void Start()
@@ -63,6 +64,7 @@ namespace DevZhrssh.Managers.Components
 
         private void HandleBuildUp()
         {
+            if (canBuildUp == false) return;
             foreach (PoolManager.PoolObjects prefab in prefabs)
             {
                 if (prefab.chanceOfSpawning < 1)

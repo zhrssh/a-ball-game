@@ -10,7 +10,7 @@ public class TurretAI : MonoBehaviour
     [SerializeField] private float rotationSpeed = 1f;
     [SerializeField] Transform indicator;
     private EntityClass entityClass;
-    private Player target;
+    private GameObject target;
     private bool canFire;
 
     // Audio
@@ -19,7 +19,8 @@ public class TurretAI : MonoBehaviour
     private void Start()
     {
         audioManager = GameObject.FindObjectOfType<AudioManager>();
-        target = FindObjectOfType<Player>();
+        target = GameObject.FindGameObjectWithTag("Player");
+
         entityClass = GetComponent<Entity>()?.entityClass;
 
         canFire = true;
@@ -80,5 +81,10 @@ public class TurretAI : MonoBehaviour
 
         yield return new WaitForSeconds(fireRate);
         canFire = true; // Allows the turret to fire
+    }
+
+    public void ResetCannon()
+    {
+        canFire = true;
     }
 }

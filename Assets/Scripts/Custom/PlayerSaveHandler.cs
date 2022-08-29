@@ -15,6 +15,8 @@ public class PlayerSaveHandler : MonoBehaviour
     private PlayerDeathComponent playerDeathComponent;
     private CoinCount coinCountScript;
 
+    public int playCount { get; private set; }
+
     private void Start()
     {
         // Load Settings
@@ -23,7 +25,6 @@ public class PlayerSaveHandler : MonoBehaviour
 
         int qualityIndex = PlayerPrefs.GetInt("quality", 3);
         QualitySettings.SetQualityLevel(qualityIndex);
-
 
         playerDeathComponent = GameObject.FindObjectOfType<PlayerDeathComponent>();
         saveSystem = GameObject.FindObjectOfType<SaveSystem>();
@@ -44,6 +45,7 @@ public class PlayerSaveHandler : MonoBehaviour
         {
             scoreComponent.highScore = data.highScore;
             coinCountScript.SetCointCount(data.currency);
+            playCount = data.playCount;
         }
     }
 
@@ -52,10 +54,12 @@ public class PlayerSaveHandler : MonoBehaviour
     {
         if (saveSystem != null)
         {
+
+            int currentPlayCount = playCount + 1;
             int highScore = scoreComponent.highScore;
             int coinCount = coinCountScript.GetCoinCount();
 
-            SaveData data = new SaveData(highScore, coinCount);
+            SaveData data = new SaveData(highScore, coinCount, currentPlayCount);
             saveSystem.Save(data);
         }
     }

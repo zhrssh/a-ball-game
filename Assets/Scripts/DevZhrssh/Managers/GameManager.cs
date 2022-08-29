@@ -16,6 +16,7 @@ namespace DevZhrssh.Managers
 
         public bool isGamePaused;
         public bool hasGameEnded;
+        public bool designedForMainMenu;
 
         // Time Manager
         public bool hasTimeManager { get; private set; }

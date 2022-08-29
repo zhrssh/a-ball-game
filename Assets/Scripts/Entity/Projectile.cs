@@ -60,6 +60,10 @@ public class Projectile : MonoBehaviour
                     otherEntity.DestroyEntity();
                     entity.DestroyEntity();
                 }
+                else
+                {
+                    entity.DestroyEntity();
+                }
             }
         }
     }

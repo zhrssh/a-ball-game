@@ -63,42 +63,52 @@ public class Entity : PooledObject, IDamageable
 
     public override void OnObjectReuse(Vector3 position, Quaternion rotation)
     {
-        
+        // Resets despawn timer
+        currentTime = 0;
+
+        // Reset, if entity is turret ai
+        if (GetComponent<TurretAI>() != null)
+        {
+            GetComponent<TurretAI>().ResetCannon();
+        }
     }
 
     public virtual void OnPlayerCollide(GameObject other)
     {
-        switch (entityClass.entityType)
+        if (scoreComponent != null && comboSystem != null)
         {
-            // If the entity is a collectible
-            case EntityClass.EntityType.Collectible:
-                scoreComponent.AddScore(entityClass.score);
-                coinCount.AddCoin(entityClass.coinAmount);
-                break;
-            // If the entity is a powerup, checks for the powerup script and call the function
-            case EntityClass.EntityType.PowerUp:
-                scoreComponent.AddScore(entityClass.score);
-                GetComponent<PowerUp>()?.UsePowerUp(other);
-                break;
-            // If the entity is a damageable
-            case EntityClass.EntityType.Damageable:
-                scoreComponent.AddScore(entityClass.score);
-                break;
-            // If the entity kills the player
-            case EntityClass.EntityType.Deadly:
-                other.GetComponent<Player>()?.Death();
-                break;
-            case EntityClass.EntityType.Ally:
-                // we'll not do anything to the player
-                return; 
-            default:
-                break;
-        }
+            switch (entityClass.entityType)
+            {
+                // If the entity is a collectible
+                case EntityClass.EntityType.Collectible:
+                    scoreComponent.AddScore(entityClass.score);
+                    coinCount.AddCoin(entityClass.coinAmount);
+                    break;
+                // If the entity is a powerup, checks for the powerup script and call the function
+                case EntityClass.EntityType.PowerUp:
+                    scoreComponent.AddScore(entityClass.score);
+                    GetComponent<PowerUp>()?.UsePowerUp(other);
+                    break;
+                // If the entity is a damageable
+                case EntityClass.EntityType.Damageable:
+                    scoreComponent.AddScore(entityClass.score);
+                    break;
+                // If the entity kills the player
+                case EntityClass.EntityType.Deadly:
+                    other.GetComponent<Player>()?.Death();
+                    break;
+                case EntityClass.EntityType.Ally:
+                    // we'll not do anything to the player
+                    return; 
+                default:
+                    break;
+            }
 
-        // When the player is still alive and active we start combo
-        if (other.activeSelf == true)
-        {
-            comboSystem.StartCombo(); // Starts the combo or add to combo
+            // When the player is still alive and active we start combo
+            if (other.activeSelf == true)
+            {
+                comboSystem.StartCombo(); // Starts the combo or add to combo
+            }
         }
 
         // Disables entity
@@ -113,6 +123,10 @@ public class Entity : PooledObject, IDamageable
         ma.startColor = entityClass.color;
 
         audioManager.Play(entityClass.audioOnCollide);
+
+        if (gameObject.GetComponent<Projectile>() != null)
+            Destroy(gameObject);
+
         gameObject.SetActive(false);
     }
 }

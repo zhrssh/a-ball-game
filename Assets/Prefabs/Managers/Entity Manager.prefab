@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6869469874258835378
+--- !u!1 &1988507762388811898
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6869469874258835376}
-  - component: {fileID: 6869469874258835377}
-  - component: {fileID: 2715135483614840200}
-  - component: {fileID: 6598966590885209293}
+  - component: {fileID: 5526235524508456994}
+  - component: {fileID: 3504664424236262770}
+  - component: {fileID: 8070674197437062150}
+  - component: {fileID: 3756961838093532577}
   m_Layer: 0
-  m_Name: Pool Manager
+  m_Name: Entity Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6869469874258835376
+--- !u!4 &5526235524508456994
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6869469874258835378}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 1988507762388811898}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6869469874258835377
+--- !u!114 &3504664424236262770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6869469874258835378}
+  m_GameObject: {fileID: 1988507762388811898}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3c201ff1b2884f4cb2805322c04a999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2715135483614840200
+--- !u!114 &8070674197437062150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6869469874258835378}
+  m_GameObject: {fileID: 1988507762388811898}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7857c647444bbf34e828fce4e400acf4, type: 3}
@@ -67,13 +67,13 @@ MonoBehaviour:
   - gameObject: {fileID: 6493878418276562166, guid: c9f15535856bd5c4481022104f697f73, type: 3}
     chanceOfSpawning: 0.1
   poolSize: 10
---- !u!114 &6598966590885209293
+--- !u!114 &3756961838093532577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6869469874258835378}
+  m_GameObject: {fileID: 1988507762388811898}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 194530ab3fc9abf459dd30f81c4f3596, type: 3}
@@ -87,4 +87,5 @@ MonoBehaviour:
   padding: {x: 100, y: 100}
   spawnRadius: 1.5
   canSpawn: 1
+  canBuildUp: 1
   buildupRate: 2
