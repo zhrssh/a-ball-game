@@ -716,6 +716,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 247498571}
+    - target: {fileID: 450639585652246843, guid: c85bcbf4624bfda489607fbccf7a0b55, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 450639586507553238, guid: c85bcbf4624bfda489607fbccf7a0b55, type: 3}
       propertyPath: m_Name
       value: Pause UI
@@ -857,6 +861,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1017818592}
+    - target: {fileID: 1148914379919557252, guid: c3c83ab91539dbe4ab8cc23cd4f5f568, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 1148914379919557253, guid: c3c83ab91539dbe4ab8cc23cd4f5f568, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1829,6 +1837,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1017818592}
+    - target: {fileID: 4152548235288439503, guid: c645a8e996c92e54db398f2d82d828d9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 4152548235335636121, guid: c645a8e996c92e54db398f2d82d828d9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
