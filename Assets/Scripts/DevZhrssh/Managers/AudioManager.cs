@@ -17,6 +17,7 @@ namespace DevZhrssh.Managers
 
         private Dictionary<string, GameObject> _sounds = new Dictionary<string, GameObject>();
         public Audio[] audios;
+        public bool isMuted;
 
         private void Start()
         {
@@ -50,12 +51,14 @@ namespace DevZhrssh.Managers
 
         public void Play(string name)
         {
+            if (isMuted) return;
             if (_sounds.ContainsKey(name) && _sounds[name] != null)
                 _sounds[name].GetComponent<AudioSource>()?.Play();
         }
 
         public void Stop(string name)
         {
+            if (isMuted) return;
             if (_sounds.ContainsKey(name) && _sounds[name] != null)
                 _sounds[name].GetComponent<AudioSource>()?.Stop();
         }

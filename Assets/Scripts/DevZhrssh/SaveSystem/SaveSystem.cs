@@ -31,8 +31,8 @@ namespace DevZhrssh.SaveSystem
             }
             else
             {
-                Debug.LogError("Save File Not Found!");
-                return null;
+                SaveData data = new SaveData(0, 0, 0, 0, 0, 0);
+                return data;
             }
         }
 

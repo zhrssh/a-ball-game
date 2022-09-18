@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
         HandleRotation();
 
         // Checks if target is still active, we destroy the rocket
-        if (target.gameObject.activeSelf == false)
+        if (target.gameObject?.activeSelf == false)
             entity.DestroyEntity();
 
         // Adds forward movement

@@ -16,6 +16,9 @@ public class PlayerSaveHandler : MonoBehaviour
     private CoinCount coinCountScript;
 
     public int playCount { get; private set; }
+    public int deaths { get; private set; }
+    private int ballID;
+    private int wallpaperID;
 
     private void Start()
     {
@@ -46,6 +49,7 @@ public class PlayerSaveHandler : MonoBehaviour
             scoreComponent.highScore = data.highScore;
             coinCountScript.SetCointCount(data.currency);
             playCount = data.playCount;
+            deaths = data.deaths;
         }
     }
 
@@ -56,11 +60,31 @@ public class PlayerSaveHandler : MonoBehaviour
         {
 
             int currentPlayCount = playCount + 1;
+            int currentDeathCount = deaths + 1;
             int highScore = scoreComponent.highScore;
             int coinCount = coinCountScript.GetCoinCount();
 
-            SaveData data = new SaveData(highScore, coinCount, currentPlayCount);
+            SaveData data = new SaveData(
+                highScore,
+                coinCount,
+                currentPlayCount,
+                currentDeathCount,
+                ballID,
+                wallpaperID
+                );
+
             saveSystem.Save(data);
         }
+    }
+
+    // Setting IDs
+    public void SetBallID(int id)
+    {
+        ballID = id;
+    }
+
+    public void SetWallpaperID(int id)
+    {
+        wallpaperID = id;
     }
 }

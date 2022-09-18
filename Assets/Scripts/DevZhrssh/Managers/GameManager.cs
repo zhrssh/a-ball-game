@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DevZhrssh.Managers.Components;
+using DevZhrssh.SaveSystem;
 using System.Collections;
 using System;
 
@@ -16,6 +17,9 @@ namespace DevZhrssh.Managers
 
         public bool isGamePaused;
         public bool hasGameEnded;
+
+        // Save System
+        private SaveSystem.SaveSystem saveSystem;
 
         // Time Manager
         public bool hasTimeManager { get; private set; }
@@ -49,6 +53,13 @@ namespace DevZhrssh.Managers
             pauseScreen?.SetActive(false);
             deathScreen?.SetActive(false);
             timeoutScreen?.SetActive(false);
+
+            // Save System
+            saveSystem = GameObject.FindObjectOfType<SaveSystem.SaveSystem>();
+            if (saveSystem == null)
+            {
+                Debug.LogError("No Save System Found!");
+            }
 
             // Player Death Component
             playerDeathComponent = GameObject.FindObjectOfType<PlayerDeathComponent>();
