@@ -8,17 +8,13 @@ namespace DevZhrssh.SaveSystem
         public int currency;
         public int playCount;
         public int deaths;
-        public int ballID { get; private set; }
-        public int wallpaperID { get; private set; }
 
-        public SaveData(int highScore, int currency, int playCount, int deaths, int ballID, int wallpaperID)
+        public SaveData(int highScore, int currency, int playCount, int deaths)
         {
             this.highScore = highScore;
             this.currency = currency;
             this.playCount = playCount;
             this.deaths = deaths;
-            this.ballID = ballID;
-            this.wallpaperID = wallpaperID;
         }
     }
 }

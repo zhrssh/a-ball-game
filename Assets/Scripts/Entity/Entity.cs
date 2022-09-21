@@ -125,7 +125,10 @@ public class Entity : PooledObject, IDamageable
         audioManager.Play(entityClass.audioOnCollide);
 
         if (gameObject.GetComponent<Projectile>() != null)
+        {
             Destroy(gameObject);
+            return;
+        }
 
         gameObject.SetActive(false);
     }

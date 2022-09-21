@@ -10,12 +10,10 @@ public class Projectile : MonoBehaviour
     private GameObject target;
 
     private Entity entity;
-    private EntityClass entityClass;
 
     private void Start()
     {
         entity = GetComponent<Entity>();
-        entityClass = entity.entityClass;
     }
 
     private void Update()

@@ -17,8 +17,6 @@ public class PlayerSaveHandler : MonoBehaviour
 
     public int playCount { get; private set; }
     public int deaths { get; private set; }
-    private int ballID;
-    private int wallpaperID;
 
     private void Start()
     {
@@ -68,23 +66,10 @@ public class PlayerSaveHandler : MonoBehaviour
                 highScore,
                 coinCount,
                 currentPlayCount,
-                currentDeathCount,
-                ballID,
-                wallpaperID
+                currentDeathCount
                 );
 
             saveSystem.Save(data);
         }
-    }
-
-    // Setting IDs
-    public void SetBallID(int id)
-    {
-        ballID = id;
-    }
-
-    public void SetWallpaperID(int id)
-    {
-        wallpaperID = id;
     }
 }
