@@ -59,7 +59,7 @@ public class CameraAnchor : MonoBehaviour {
 	/// </summary>
 	IEnumerator UpdateAnchorAsync() {
 		uint cameraWaitCycles = 0;
-		while(ViewportHandler.Instance == null) {
+		while(CameraViewportHandler.Instance == null) {
 			++cameraWaitCycles;
 			yield return new WaitForEndOfFrame();
 		}
@@ -73,31 +73,31 @@ public class CameraAnchor : MonoBehaviour {
 	void UpdateAnchor() {
 		switch(anchorType) {
 		case AnchorType.BottomLeft:
-			SetAnchor(ViewportHandler.Instance.BottomLeft);
+			SetAnchor(CameraViewportHandler.Instance.BottomLeft);
 			break;
 		case AnchorType.BottomCenter:
-			SetAnchor(ViewportHandler.Instance.BottomCenter);
+			SetAnchor(CameraViewportHandler.Instance.BottomCenter);
 			break;
 		case AnchorType.BottomRight:
-			SetAnchor(ViewportHandler.Instance.BottomRight);
+			SetAnchor(CameraViewportHandler.Instance.BottomRight);
 			break;
 		case AnchorType.MiddleLeft:
-			SetAnchor(ViewportHandler.Instance.MiddleLeft);
+			SetAnchor(CameraViewportHandler.Instance.MiddleLeft);
 			break;
 		case AnchorType.MiddleCenter:
-			SetAnchor(ViewportHandler.Instance.MiddleCenter);
+			SetAnchor(CameraViewportHandler.Instance.MiddleCenter);
 			break;
 		case AnchorType.MiddleRight:
-			SetAnchor(ViewportHandler.Instance.MiddleRight);
+			SetAnchor(CameraViewportHandler.Instance.MiddleRight);
 			break;
 		case AnchorType.TopLeft:
-			SetAnchor(ViewportHandler.Instance.TopLeft);
+			SetAnchor(CameraViewportHandler.Instance.TopLeft);
 			break;
 		case AnchorType.TopCenter:
-			SetAnchor(ViewportHandler.Instance.TopCenter);
+			SetAnchor(CameraViewportHandler.Instance.TopCenter);
 			break;
 		case AnchorType.TopRight:
-			SetAnchor(ViewportHandler.Instance.TopRight);
+			SetAnchor(CameraViewportHandler.Instance.TopRight);
 			break;
 		}
 	}

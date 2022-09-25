@@ -12,6 +12,7 @@ public class AdsHandler : MonoBehaviour
     private PlayerDeathComponent playerDeathComponent;
 
     private int playCount;
+    public bool showAds { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -23,14 +24,21 @@ public class AdsHandler : MonoBehaviour
         playerSaveHandler = GameObject.FindObjectOfType<PlayerSaveHandler>();
 
         playCount = playerSaveHandler.playCount;
+
+        showAds = playerSaveHandler.showAds;
     }
 
     public void PlayAdOnFifthDeath()
     {
-        Debug.Log("Play Count: " + playCount);
+        if (showAds == false) return;
         if (playCount % 5 == 0 && playCount != 0)
         {
             adsManager.PlayAd();
         }
+    }
+
+    public void RemoveAds()
+    {
+        showAds = false;
     }
 }

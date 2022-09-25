@@ -12,7 +12,7 @@ public class MenuStatistics : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI highScore;
     [SerializeField] private TextMeshProUGUI playCount;
-    [SerializeField] private TextMeshProUGUI deaths;
+    [SerializeField] private TextMeshProUGUI gameOvers;
 
 
     void Start()
@@ -30,7 +30,7 @@ public class MenuStatistics : MonoBehaviour
         {
             highScore.text = "High Score: " + data.highScore;
             playCount.text = "Plays: " + data.playCount;
-            deaths.text = "Deaths: " + data.deaths;
+            gameOvers.text = "Gameovers: " + data.deaths;
         }
     }
 }

@@ -28,13 +28,13 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 [RequireComponent (typeof (Camera))]
-public class ViewportHandler : MonoBehaviour
+public class CameraViewportHandler : MonoBehaviour
 {
     #region FIELDS
     public Color wireColor = Color.white;
     public float UnitsSize = 1; // size of your scene in unity units
     public Constraint constraint = Constraint.Portrait;
-    public static ViewportHandler Instance;
+    public static CameraViewportHandler Instance;
     public new Camera camera;
 
     private float _width;

@@ -8,8 +8,7 @@ public class UICoinCount : MonoBehaviour
     [SerializeField] private CoinCount coinCountScript;
     [SerializeField] private TextMeshProUGUI[] coinDisplay;
 
-    // Update is called once per frame
-    private void Start()
+    private void Update()
     {
         UpdateCount();
     }

@@ -31,7 +31,7 @@ namespace DevZhrssh.SaveSystem
             }
             else
             {
-                SaveData data = new SaveData(0, 0, 0, 0);
+                SaveData data = new SaveData(0, 0, 0, 0, 0, false, false, false, false, true);
                 return data;
             }
         }

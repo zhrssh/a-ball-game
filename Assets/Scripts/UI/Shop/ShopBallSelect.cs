@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DevZhrssh.SaveSystem;
 
 public class ShopBallSelect : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class ShopBallSelect : MonoBehaviour
     [SerializeField] private TextMeshProUGUI abilityText;
 
     [SerializeField] private ShopBallBuyAndEquip shopBallBuyAndEquip;
+
+    private PlayerSaveHandler playerSave;
+    private SaveData data;
 
     public enum Ability
     {
@@ -34,6 +38,19 @@ public class ShopBallSelect : MonoBehaviour
 
     private void Start()
     {
+        playerSave = GameObject.FindObjectOfType<PlayerSaveHandler>();
+        if (playerSave != null)
+            data = playerSave.Load();
+
+        if (id == 1)
+            isBought = data.ball2;
+        if (id == 2)
+            isBought = data.ball3;
+        if (id == 3)
+            isBought = data.ball4;
+        if (id == 4)
+            isBought = data.ball5;
+
         if (shopBallNavigation != null)
             shopBallNavigation.OnBallSelectedCallback += Select;
 
