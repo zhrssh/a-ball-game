@@ -26,18 +26,30 @@ namespace DevZhrssh.Managers
         private string gameId = "4717852";
 
         [SerializeField] private BannerPosition bannerPosition;
+        private bool isTestMode;
 
         public delegate void OnAdCompleted();
         public event OnAdCompleted onAdCompletedCallback;
 
         private void Start()
         {
-            Advertisement.Initialize(gameId, true, this); // Android ID
+            if (Debug.isDebugBuild)
+            {
+                Advertisement.debugMode = true;
+                isTestMode = true;
+            } 
+            else
+            {
+                Advertisement.debugMode = false;
+                isTestMode = false;
+            }
+
+            Advertisement.Initialize(gameId, isTestMode, this); // Android ID
         }
 
         public void PlayAd()
         {
-            // Load the Ad unit (Insterstitial Ads)
+            // Load the Ad unit (Insterstitial Ads) 
             Advertisement.Load("Interstitial_Android", AdsManager.Instance as IUnityAdsLoadListener);
         }
 

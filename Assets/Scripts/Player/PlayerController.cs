@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float power;
     [SerializeField] private Vector2 minPower;
     [SerializeField] private Vector2 maxPower;
-    public bool isControlInverted;
+    public int controlType;
     public bool isPlayerForMainMenu;
 
     // Camera Shake
@@ -24,12 +24,12 @@ public class PlayerController : MonoBehaviour
     public Vector3 currentPoint { get; private set; }
 
     // Trajectory Line
-    private Trajectory trajectoryLine;
+    private PlayerTrajectory trajectoryLine;
 
     // Time Control
     [Header("Time Control")]
     [SerializeField] private float timeSlowAmount = 0.5f;
-    private TimeControl timeControl;
+    private PlayerTimeControl timeControl;
 
     // Body Stretch and Squash
     [Header("Stretch and Squash")]
@@ -59,10 +59,10 @@ public class PlayerController : MonoBehaviour
             _rb = GetComponent<Rigidbody2D>();
 
         if (trajectoryLine == null)
-            trajectoryLine = GetComponent<Trajectory>();
+            trajectoryLine = GetComponent<PlayerTrajectory>();
 
         if (timeControl == null)
-            timeControl = GetComponent<TimeControl>();
+            timeControl = GetComponent<PlayerTimeControl>();
 
         originalScale = transform.localScale;
 
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
             gameManager = GameObject.FindObjectOfType<GameManager>();
 
         // Load Controller Settings
-        isControlInverted = (PlayerPrefs.GetInt("controls", 0) == 0) ? false : true;
+        controlType = (PlayerPrefs.GetInt("controls", 0) == 0) ? 0 : 1;
     }
 
     private void Update()
@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
     private void OnHoldTouch(Vector2 position)
     {
         currentPoint = cam.ScreenToWorldPoint(new Vector3(position.x, position.y, 15));
-        trajectoryLine.RenderLine((isControlInverted) ? currentPoint : startPoint, (isControlInverted) ? startPoint : currentPoint); // check if the player wants their controls inverted
+        trajectoryLine.RenderLine((controlType == 1) ? currentPoint : startPoint, (controlType == 1) ? startPoint : currentPoint); // check if the player wants their controls inverted
 
 /*        // Handles trajectory line
         Vector3 direction = (!isControlInverted) ? startPoint - currentPoint : currentPoint - startPoint;
@@ -171,8 +171,8 @@ public class PlayerController : MonoBehaviour
         endPoint = cam.ScreenToWorldPoint(new Vector3(position.x, position.y, 15));
 
         force = new Vector2(
-            Mathf.Clamp((isControlInverted) ? endPoint.x - startPoint.x : startPoint.x - endPoint.x, minPower.x, maxPower.x), // inverted
-            Mathf.Clamp((isControlInverted) ? endPoint.y - startPoint.y : startPoint.y - endPoint.y, minPower.y, maxPower.y)
+            Mathf.Clamp((controlType == 1) ? endPoint.x - startPoint.x : startPoint.x - endPoint.x, minPower.x, maxPower.x), // inverted
+            Mathf.Clamp((controlType == 1) ? endPoint.y - startPoint.y : startPoint.y - endPoint.y, minPower.y, maxPower.y)
         );
 
         trajectoryLine.EndLine();

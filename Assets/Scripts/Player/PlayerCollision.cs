@@ -14,17 +14,17 @@ public class PlayerCollision : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Handle enemy function call
-        if (collision.GetComponent<Entity>() as IDamageable != null)
+        if (collision.GetComponent<EntityObject>() as IDamageable != null)
         {
             // Play camera shake when hitting enemies
             if (cameraShake != null)
             {
-                if (collision.GetComponent<Entity>().entityClass.entityType != EntityClass.EntityType.Collectible && gameObject.activeSelf) // If the player collides to a coin don't shake camera
+                if (collision.GetComponent<EntityObject>().entityClass.entityType != EntityClass.EntityType.Collectible && gameObject.activeSelf) // If the player collides to a coin don't shake camera
                     StartCoroutine(cameraShake.Shake(shakeDuration, shakeMagnitude));
             }
 
             // Calls the enemy script OnPlayerCollide
-            IDamageable damageable = collision.GetComponent<Entity>() as IDamageable;
+            IDamageable damageable = collision.GetComponent<EntityObject>() as IDamageable;
             damageable.OnPlayerCollide(gameObject); // pass in the player game object
         } 
     }

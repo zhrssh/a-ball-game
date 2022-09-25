@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bannerPosition: 4
+  isTestMode: 1
 --- !u!114 &1321388464
 MonoBehaviour:
   m_ObjectHideFlags: 0

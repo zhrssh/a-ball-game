@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace DevZhrssh.Managers
 {
@@ -16,6 +17,7 @@ namespace DevZhrssh.Managers
         }
 
         private Dictionary<string, GameObject> _sounds = new Dictionary<string, GameObject>();
+        public AudioMixerGroup master;
         public Audio[] audios;
         public bool isMuted;
 
@@ -27,6 +29,7 @@ namespace DevZhrssh.Managers
                 GameObject obj = new GameObject(audio.name + " Audio Source");
                 obj.transform.parent = transform;
                 AudioSource source = obj.AddComponent<AudioSource>();
+                source.outputAudioMixerGroup = master;
                 source.clip = audio.clip;
                 source.loop = audio.isLooping;
                 source.volume = audio.volume;
@@ -37,6 +40,8 @@ namespace DevZhrssh.Managers
                 if (!_sounds.ContainsKey(audio.name))
                     _sounds.Add(audio.name, obj);
             }
+
+            SetAudio("BGM");
         }
 
         public void OnEnable()
@@ -47,6 +52,20 @@ namespace DevZhrssh.Managers
         public void OnDisable()
         {
             this.enabled = false;
+        }
+
+        public void SetAudio(string name)
+        {
+            if (_sounds.ContainsKey(name) && _sounds[name] != null)
+                _sounds[name].GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("musicui");
+        }
+
+        public AudioSource GetAudio(string name)
+        {
+            if (_sounds.ContainsKey(name) && _sounds[name] != null)
+                return _sounds[name].GetComponent<AudioSource>();
+            else
+                return null;
         }
 
         public void Play(string name)

@@ -8,14 +8,14 @@ public class IAPManager : MonoBehaviour
     private string unlockAll = "com.zherish.aballgame.unlockall";
 
     private AdsHandler adsHandler;
-    private ShopBallSelect[] balls;
-    private PlayerSaveHandler playerSave;
+    private UIShopBall[] balls;
+    private GameSystemSaveHandler playerSave;
 
     private void Start()
     {
         adsHandler = GameObject.FindObjectOfType<AdsHandler>();
-        balls = GameObject.FindObjectsOfType<ShopBallSelect>();
-        playerSave = GameObject.FindObjectOfType<PlayerSaveHandler>();
+        balls = GameObject.FindObjectsOfType<UIShopBall>();
+        playerSave = GameObject.FindObjectOfType<GameSystemSaveHandler>();
     }
 
     public void OnPurchaseComplete(Product product)

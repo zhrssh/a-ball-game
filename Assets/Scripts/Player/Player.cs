@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
     private GameManager gameManager;
     private PlayerCollision playerCollision;
     private PlayerController playerController;
-    private TimeControl timeControl;
-    private Trajectory trajectoryLine;
+    private PlayerTimeControl timeControl;
+    private PlayerTrajectory trajectoryLine;
 
     private SpriteRenderer spriteRenderer;
 
@@ -30,8 +30,8 @@ public class Player : MonoBehaviour
         gameManager = GameObject.FindObjectOfType<GameManager>();
         playerCollision = GetComponent<PlayerCollision>();
         playerController = GetComponent<PlayerController>();
-        timeControl = GetComponent<TimeControl>();
-        trajectoryLine = GetComponent<Trajectory>();
+        timeControl = GetComponent<PlayerTimeControl>();
+        trajectoryLine = GetComponent<PlayerTrajectory>();
         
         if (gameManager != null)
         {
