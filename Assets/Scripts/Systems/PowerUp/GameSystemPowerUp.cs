@@ -25,6 +25,7 @@ public class GameSystemPowerUp : MonoBehaviour
     private PlayerController playerController;
     private TimeManager timeManager;
     private TimeComponent timeComponent;
+    private GameSystemShopCoinCount coinCount;
 
     private void Start()
     {
@@ -39,6 +40,8 @@ public class GameSystemPowerUp : MonoBehaviour
 
         timeManager = GameObject.FindObjectOfType<TimeManager>();
         timeComponent = timeManager.GetComponent<TimeComponent>();
+
+        coinCount = GameObject.FindObjectOfType<GameSystemShopCoinCount>();
     }
 
     public void UsePowerUp(GameSystemPowerUpData powerUpData)
@@ -61,27 +64,62 @@ public class GameSystemPowerUp : MonoBehaviour
 
     private IEnumerator DoublePoints(GameSystemPowerUpData powerUp)
     {
+        if (comboSystem == null)
+            comboSystem = GameObject.FindObjectOfType<GameSystemCombo>();
+        
         comboSystem.comboMultiplier = 2;
 
         // Displays powerup
         powerUpDisplay.DisplayPowerup(powerUp.name);
+
+        // If is a default powerup
+        if (powerUp.duration == -1)
+            yield break;
 
         yield return new WaitForSeconds(powerUp.duration);
 
         // Hides powerup
         powerUpDisplay.HidePowerup(powerUp.name);
 
-        comboSystem.comboMultiplier = 1;
+        if (comboSystem != null)
+            comboSystem.comboMultiplier = 1;
 
         // When time runs out we remove it from list
         powerUps.Remove(powerUp.name);
     }
 
+    private IEnumerator DoubleCoins(GameSystemPowerUpData powerUp)
+    {
+        if (coinCount == null)
+            coinCount = GameObject.FindObjectOfType<GameSystemShopCoinCount>();
+        
+        coinCount.SetMultiplier(2);
+
+        // If is a default powerup
+        if (powerUp.duration == -1)
+        {
+            yield break;
+        }
+
+        yield return new WaitForSeconds(powerUp.duration);
+
+        if (coinCount != null)
+            coinCount.ResetMultiplier();
+
+        powerUps.Remove(powerUp.name);
+    }
+
     private IEnumerator Invulnerability(GameSystemPowerUpData powerUp)
     {
+        if (player == null)
+            player = GameObject.FindObjectOfType<Player>();
+
         player.isInvulnerable = true;
 
         // Displays powerup
+        if (powerUpDisplay == null)
+            powerUpDisplay = GameObject.FindObjectOfType<GameSystemPowerUpDisplay>();
+
         powerUpDisplay.DisplayPowerup(powerUp.name);
 
         yield return new WaitForSeconds(powerUp.duration);
@@ -97,19 +135,25 @@ public class GameSystemPowerUp : MonoBehaviour
 
     private IEnumerator SpawnRockets(GameSystemPowerUpData powerUp)
     {
-        float time = powerUp.duration;
+        float time = (powerUp.duration == -1) ? 999999 : powerUp.duration;
 
         // Displays powerup
+        if (powerUpDisplay == null)
+            powerUpDisplay = GameObject.FindObjectOfType<GameSystemPowerUpDisplay>();
+
         powerUpDisplay.DisplayPowerup(powerUp.name);
 
         // Allows rockets to spawn when the effect is still in duration
+        if (player == null)
+            player = GameObject.FindObjectOfType<Player>();
+
         while (time > 0)
         {
             // Searches for nearest entities
             Collider2D[] colliders = Physics2D.OverlapCircleAll(player.transform.position, castRadius);
 
             // Limits to spawn count every second
-            int spawnCount = (int)powerUp.duration;
+            int spawnCount = (powerUp.duration == -1) ? 999999 : (int)powerUp.duration;
 
             // Works like a countdown
             time -= 1f;
@@ -154,7 +198,9 @@ public class GameSystemPowerUp : MonoBehaviour
 
     private IEnumerator ExtendTime(GameSystemPowerUpData powerUp)
     {
-        timeComponent.AddTime(-powerUp.duration); // We subtract because the current time is a countdown
+        if (timeComponent != null)
+            timeComponent.AddTime(-powerUp.duration); // We subtract because the current time is a countdown
+        
         yield return null;
 
         // When effect is done we remove it from list

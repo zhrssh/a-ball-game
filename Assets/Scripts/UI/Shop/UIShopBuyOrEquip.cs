@@ -25,6 +25,7 @@ public class UIShopBuyOrEquip : MonoBehaviour
 
     private GameSystemSaveHandler playerSave;
     private SaveData data;
+    private SaveSystem saveSystem;
 
     private void Start()
     {
@@ -33,6 +34,7 @@ public class UIShopBuyOrEquip : MonoBehaviour
         if (playerSave != null)
             data = playerSave.Load();
 
+        saveSystem = GameObject.FindObjectOfType<SaveSystem>();
         _currentEquippedBall = data.currentEquippedBall;
 
         CheckBoughtItems();
@@ -48,7 +50,8 @@ public class UIShopBuyOrEquip : MonoBehaviour
     {
         if (_currentSelectedBall != null && buttonText != null)
         {
-            buttonText.text = _currentSelectedBall.GetPrice().ToString();
+            if (_currentSelectedBall.IsBought() == false)
+                buttonText.text = _currentSelectedBall.GetPrice().ToString();
 
             if (_currentSelectedBall.IsBought() == true)
             {
@@ -59,6 +62,7 @@ public class UIShopBuyOrEquip : MonoBehaviour
             {
                 buttonText.text = "Equipped";
             }
+
         }
     }
 
@@ -81,6 +85,11 @@ public class UIShopBuyOrEquip : MonoBehaviour
         // Saves whenever the player presses the button
         if (playerSave != null)
             playerSave.Save();
+        else
+        {
+            playerSave = GameObject.FindObjectOfType<GameSystemSaveHandler>();
+            playerSave.Save();
+        }
     }
 
     public void SetCurrentBall(UIShopBall currentBall)

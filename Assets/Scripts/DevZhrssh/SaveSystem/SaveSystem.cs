@@ -6,6 +6,35 @@ namespace DevZhrssh.SaveSystem
 {
     public class SaveSystem : MonoBehaviour
     {
+        public void Save<T>(T data, string path)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            string newPath = Application.persistentDataPath + "/" + path;
+            FileStream stream = new FileStream(newPath, FileMode.Create);
+
+            formatter.Serialize(stream, data);
+            stream.Close();
+        }
+
+        public T Load<T>(string path)
+        {
+            string newPath = Application.persistentDataPath + "/" + path;
+            if (File.Exists(newPath))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream stream = new FileStream(newPath, FileMode.Open);
+
+                T data = (T)formatter.Deserialize(stream);
+                stream.Close();
+
+                return data;
+            }
+            else
+            {
+                return default(T);
+            }
+        }
+
         public void Save(SaveData save)
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -36,9 +65,9 @@ namespace DevZhrssh.SaveSystem
             }
         }
 
-        public void DeleteData()
+        public void DeleteData(string filename)
         {
-            string path = Application.persistentDataPath + "/save.game";
+            string path = Application.persistentDataPath + "/" + filename;
             if (File.Exists(path))
             {
                 File.Delete(path);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DevZhrssh.SaveSystem;
+using UnityEngine.UI;
 
 public class UIShopBall : MonoBehaviour
 {
@@ -24,10 +25,18 @@ public class UIShopBall : MonoBehaviour
         ROCKETS,
         DOUBLESCORE,
         DOUBLECOINS,
-        EXTRALIFE
+        INVULNERABLE,
+        RANDO
     }
 
     private bool isSelected;
+
+    [SerializeField] private Image _image;
+    public Image image { 
+        get {
+            return _image; 
+        } 
+    }
 
     [SerializeField] private bool isDefault;
     [SerializeField] private int id;
@@ -41,15 +50,6 @@ public class UIShopBall : MonoBehaviour
         playerSave = GameObject.FindObjectOfType<GameSystemSaveHandler>();
         if (playerSave != null)
             data = playerSave.Load();
-
-        if (id == 1)
-            isBought = data.ball2;
-        if (id == 2)
-            isBought = data.ball3;
-        if (id == 3)
-            isBought = data.ball4;
-        if (id == 4)
-            isBought = data.ball5;
 
         if (shopBallNavigation != null)
             shopBallNavigation.OnBallSelectedCallback += Select;
@@ -66,6 +66,15 @@ public class UIShopBall : MonoBehaviour
 
     private void Update()
     {
+        if (id == 1)
+            isBought = data.ball2;
+        if (id == 2)
+            isBought = data.ball3;
+        if (id == 3)
+            isBought = data.ball4;
+        if (id == 4)
+            isBought = data.ball5;
+
         if (isSelected)
         {
             // Move bar into position
@@ -90,8 +99,11 @@ public class UIShopBall : MonoBehaviour
                 case Ability.ROCKETS:
                     abilityText.text = "Ability: Spawn Rockets";
                     break;
-                case Ability.EXTRALIFE:
-                    abilityText.text = "Ability: Extra Life";
+                case Ability.INVULNERABLE:
+                    abilityText.text = "Ability: Invulnerable for 10s";
+                    break;
+                case Ability.RANDO:
+                    abilityText.text = "Ability: Random Buffs";
                     break;
             }     
             
@@ -125,6 +137,11 @@ public class UIShopBall : MonoBehaviour
     public bool IsBought()
     {
         return isBought;
+    }
+
+    public Ability GetAbility()
+    {
+        return ability;
     }
 
     public void Select(int id)

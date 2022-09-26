@@ -229,6 +229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5935590318192590249}
+  - component: {fileID: 3141022079863650367}
   - component: {fileID: 5308337269138699877}
   - component: {fileID: 5935590318192590248}
   - component: {fileID: 5935590318192590294}
@@ -262,6 +263,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3141022079863650367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5935590318192590254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4fa9814100db5541833261c616e5326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballsList: []
 --- !u!114 &5308337269138699877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +305,8 @@ MonoBehaviour:
   power: 10
   minPower: {x: -3, y: -3}
   maxPower: {x: 3, y: 3}
-  isControlInverted: 0
+  controlType: 0
+  isPlayerForMainMenu: 0
   cameraShake: {fileID: 0}
   timeSlowAmount: 0.05
   stretchAmount: {x: 0.65, y: 1.35, z: 1}

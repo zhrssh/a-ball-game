@@ -32,9 +32,10 @@ public class GameSystemSaveHandler : MonoBehaviour
     public bool ball3 { get; private set; }
     public bool ball4 { get; private set; }
     public bool ball5 { get; private set; }
-    public bool unlockedAll { get; private set; }
     public bool showAds { get; private set; }
 
+    // Rewards
+    private AdsReward.Rewards rewards;
 
     private void Start()
     {
@@ -88,7 +89,6 @@ public class GameSystemSaveHandler : MonoBehaviour
     {
         if (saveSystem != null)
         {
-
             int currentPlayCount = playCount;
             int currentDeathCount = gameOvers;
             int highScore = scoreComponent.highScore;
