@@ -6,28 +6,51 @@ namespace DevZhrssh.SaveSystem
 {
     public class SaveSystem : MonoBehaviour
     {
-        public void Save<T>(T data, string path)
+
+        public void Save<T>(T data, string filename)
         {
+            string jsonString = JsonUtility.ToJson(data);
+            string path = Application.persistentDataPath + "/" + filename + ".json";
+
+            using StreamWriter writer = new StreamWriter(path);
+            writer.Write(jsonString);
+            writer.Close();
+
+
+/*          Removed because of security issues
+
             BinaryFormatter formatter = new BinaryFormatter();
-            string newPath = Application.persistentDataPath + "/" + path;
+            string newPath = Application.persistentDataPath + "/" + filename;
             FileStream stream = new FileStream(newPath, FileMode.Create);
 
             formatter.Serialize(stream, data);
             stream.Close();
+*/
         }
 
-        public T Load<T>(string path)
+        public T Load<T>(string filename)
         {
-            string newPath = Application.persistentDataPath + "/" + path;
-            if (File.Exists(newPath))
+            string path = Application.persistentDataPath + "/" + filename + ".json";
+            if (File.Exists(path))
             {
+                using StreamReader reader = new StreamReader(path);
+                string json = reader.ReadToEnd();
+                reader.Close();
+
+                T data = JsonUtility.FromJson<T>(json);
+
+                return data;
+
+/*              Removed because of security issues
+                
                 BinaryFormatter formatter = new BinaryFormatter();
-                FileStream stream = new FileStream(newPath, FileMode.Open);
+                FileStream stream = new FileStream(path, FileMode.Open);
 
                 T data = (T)formatter.Deserialize(stream);
                 stream.Close();
 
                 return data;
+*/
             }
             else
             {
@@ -35,39 +58,9 @@ namespace DevZhrssh.SaveSystem
             }
         }
 
-        public void Save(SaveData save)
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            string path = Application.persistentDataPath + "/save.game"; // this is the save file
-            FileStream stream = new FileStream(path, FileMode.Create);
-
-            formatter.Serialize(stream, save);
-            stream.Close();
-        }
-
-        public SaveData Load()
-        {
-            string path = Application.persistentDataPath + "/save.game";
-            if (File.Exists(path))
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                FileStream stream = new FileStream(path, FileMode.Open);
-
-                SaveData data = formatter.Deserialize(stream) as SaveData;
-                stream.Close();
-
-                return data;
-            }
-            else
-            {
-                SaveData data = new SaveData(0, 0, 0, 0, 0, false, false, false, false, true);
-                return data;
-            }
-        }
-
         public void DeleteData(string filename)
         {
-            string path = Application.persistentDataPath + "/" + filename;
+            string path = Application.persistentDataPath + "/" + filename + ".json";
             if (File.Exists(path))
             {
                 File.Delete(path);

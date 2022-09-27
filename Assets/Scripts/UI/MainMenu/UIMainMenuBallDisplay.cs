@@ -11,36 +11,32 @@ public class UIMainMenuBallDisplay : MonoBehaviour
     [SerializeField] private Image display;
     [SerializeField] private Image[] balls;
 
-    private GameSystemSaveHandler playerSave;
-    private SaveData data;
+    // Handles current equippedball
+    private GamePlayerSaveHandler playerSave;
+    private PlayerData playerData;
+
+    private void Awake()
+    {
+        playerSave = GameObject.FindObjectOfType<GamePlayerSaveHandler>();
+    }
 
     void Start()
     {
-        playerSave = GameObject.FindObjectOfType<GameSystemSaveHandler>();
         if (playerSave != null)
-            data = playerSave.Load();
+            playerData = playerSave.playerData;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (data != null)
+        if (playerData != null)
         {
-            int currentBall = data.currentEquippedBall;
+            int currentBall = playerData.currentBallEquipped;
             if (balls.Length > 0)
             {
                 display.sprite = balls[currentBall].sprite;
                 display.color = balls[currentBall].color;
             }
         }
-        else
-        {
-            UpdateData();
-        }
-    }
-
-    public void UpdateData()
-    {
-        data = playerSave.Load();
     }
 }

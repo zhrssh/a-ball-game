@@ -14,6 +14,10 @@ public class AdsReward : MonoBehaviour
     private ScoreComponent scoreComponent;
     private int scoreToKeep;
 
+    // Coin System
+    private GameSystemShopCoinCount coinCount;
+    private int currencyToKeep;
+ 
     // Powerup System
     [SerializeField] private List<GameSystemPowerUpData> powerUpList;
     private GameSystemPowerUp gameSystemPowerUp;
@@ -31,30 +35,38 @@ public class AdsReward : MonoBehaviour
 
 
     [System.Serializable]
-    public class Rewards
+    public class RewardsData
     {
+        public int currency;
         public int score;
         public string powerUp;
 
-        public Rewards(int score, string powerUp)
+        public RewardsData(int currency, int score, string powerUp)
         {
+            this.currency = currency;
             this.score = score;
             this.powerUp = powerUp;
         }
     }
 
+    private void Awake()
+    {
+        // References
+        adsManager = AdsManager.Instance;
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+        saveSystem = GameObject.FindObjectOfType<SaveSystem>();
+
+        scoreComponent = GameObject.FindObjectOfType<ScoreComponent>();
+        gameSystemPowerUp = GameObject.FindObjectOfType<GameSystemPowerUp>();
+        coinCount = GameObject.FindObjectOfType<GameSystemShopCoinCount>();
+    }
+
     private void Start()
     {
-        adsManager = AdsManager.Instance;
         if (adsManager != null)
         {
             adsManager.onAdCompletedCallback += RewardPlayer;
         }
-
-        scoreComponent = GameObject.FindObjectOfType<ScoreComponent>();
-        gameSystemPowerUp = GameObject.FindObjectOfType<GameSystemPowerUp>();
-        saveSystem = GameObject.FindObjectOfType<SaveSystem>();
-        gameManager = GameObject.FindObjectOfType<GameManager>();
 
         // Get Rewards
         GetRewards();
@@ -73,11 +85,15 @@ public class AdsReward : MonoBehaviour
         if (powerUpList.Count > 0)
             powerUpToGive = powerUpList[Random.Range(0, powerUpList.Count)].name;
 
+        // Keeps the player's currency
+        if (coinCount != null)
+            currencyToKeep = coinCount.GetCoinCount();
+
         // Save Data then Reload the game
         if (saveSystem != null)
         {
-            Rewards reward = new Rewards(scoreToKeep, powerUpToGive);
-            saveSystem.Save<Rewards>(reward, "rewards.game");
+            RewardsData reward = new RewardsData(currencyToKeep ,scoreToKeep, powerUpToGive);
+            saveSystem.Save<RewardsData>(reward, "rewards");
         }
 
         // Reloads the game
@@ -87,10 +103,10 @@ public class AdsReward : MonoBehaviour
     private void GetRewards()
     {
         // Get Rewards
-        Rewards rewards = null;
+        RewardsData rewards = null;
         if (saveSystem != null)
         {
-            rewards = saveSystem.Load<Rewards>("rewards.game");
+            rewards = saveSystem.Load<RewardsData>("rewards");
         }
 
         if (rewards != null)
@@ -101,6 +117,10 @@ public class AdsReward : MonoBehaviour
             // Apply Score
             if (scoreComponent != null)
                 scoreComponent.playerScore = rewards.score;
+
+            // Apply currency
+            if (coinCount != null)
+                coinCount.SetCointCount(rewards.currency);
 
             // Apply Powerup
             if (gameSystemPowerUp != null)
@@ -116,7 +136,7 @@ public class AdsReward : MonoBehaviour
             }
 
             // Delete data
-            saveSystem.DeleteData("rewards.game");
+            saveSystem.DeleteData("rewards");
         }
     }
 }

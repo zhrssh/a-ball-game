@@ -974,6 +974,7 @@ GameObject:
   - component: {fileID: 1464908064}
   - component: {fileID: 1464908063}
   - component: {fileID: 1464908062}
+  - component: {fileID: 1464908067}
   - component: {fileID: 1464908066}
   m_Layer: 5
   m_Name: Canvas
@@ -1086,6 +1087,21 @@ MonoBehaviour:
   time: {fileID: 918309601}
   comboProgressBar: {fileID: 1603765539938208691}
   currentCombo: {fileID: 1603765539328355694}
+--- !u!114 &1464908067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464908061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d4508515c138946aa4bc1654866268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinCountScript: {fileID: 4696491992710614400}
+  coinDisplay:
+  - {fileID: 291879092301605857}
 --- !u!4 &1711179713 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377042521334733242, guid: 7a5902a8bdf228e47835505c5b4c1214, type: 3}
@@ -3920,6 +3936,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad47b0addd5063e468171462f5561cfb, type: 3}
+--- !u!114 &4696491992710614400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4696491994195714151, guid: ad47b0addd5063e468171462f5561cfb, type: 3}
+  m_PrefabInstance: {fileID: 4696491992710614399}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a99bdf61bd4234d819eff58bc7506f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4902572380476954746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5373,6 +5400,10 @@ PrefabInstance:
     - target: {fileID: 8386058667390225933, guid: b9662596180fb1f4cb5fd27a434c7248, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386058667652745127, guid: b9662596180fb1f4cb5fd27a434c7248, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2815.901
       objectReference: {fileID: 0}
     - target: {fileID: 8386058668315175793, guid: b9662596180fb1f4cb5fd27a434c7248, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

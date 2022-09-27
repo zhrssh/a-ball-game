@@ -54,13 +54,6 @@ namespace DevZhrssh.Managers
             deathScreen?.SetActive(false);
             timeoutScreen?.SetActive(false);
 
-            // Save System
-            saveSystem = GameObject.FindObjectOfType<SaveSystem.SaveSystem>();
-            if (saveSystem == null)
-            {
-                Debug.LogError("No Save System Found!");
-            }
-
             // Player Death Component
             playerDeathComponent = GameObject.FindObjectOfType<PlayerDeathComponent>();
             if (playerDeathComponent != null)

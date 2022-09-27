@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3160874977800276504}
   - component: {fileID: 3160874977800276505}
   - component: {fileID: 3160874977800276518}
+  - component: {fileID: 3160874978142742473}
+  - component: {fileID: 3160874978142742472}
   m_Layer: 0
   m_Name: SaveSystem
   m_TagString: Untagged
@@ -57,3 +59,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: df8d13e9d6c7e2d4d9ab30762328acd1, type: 2}
+--- !u!114 &3160874978142742473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3160874977800276507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a9b064f950cdd145819f43e6be62027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3160874978142742472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3160874977800276507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad34a738eaa06214ba48ac1c7757c5f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

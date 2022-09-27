@@ -7,37 +7,29 @@ public class IAPManager : MonoBehaviour
 {
     private string unlockAll = "com.zherish.aballgame.unlockall";
 
-    private AdsHandler adsHandler;
-    private UIShopBall[] balls;
-    private GameSystemSaveHandler playerSave;
+    // Shop
+    private GameSystemShop shop;
+
+    private void Awake()
+    {
+        // References
+        shop = GameObject.FindObjectOfType<GameSystemShop>();
+    }
 
     private void Start()
     {
-        adsHandler = GameObject.FindObjectOfType<AdsHandler>();
-        balls = GameObject.FindObjectsOfType<UIShopBall>();
-        playerSave = GameObject.FindObjectOfType<GameSystemSaveHandler>();
+
     }
 
     public void OnPurchaseComplete(Product product)
     {
         if (product.definition.id == unlockAll)
         {
-            // Remove Ads
-            if (adsHandler != null)
-                adsHandler.RemoveAds();
-
-            // Unlock all balls
-            if (balls.Length > 0)
+            if (shop != null)
             {
-                for (int i = 0; i < balls.Length; i++)
-                {
-                    balls[i].Buy(i);
-                }
+                // Remove Ads and Unlock All Balls
+                shop.BuyIAP();
             }
-
-            // Save
-            if (playerSave != null)
-                playerSave.Save();
         }
     }
 

@@ -6,31 +6,35 @@ using TMPro;
 
 public class UIMainMenuStatistics : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private SaveSystem saveSystem;
-    private SaveData data;
+    // Save Systems and Data
+    private GameStatisticsSaveHandler saveHandler;
+    private StatisticsData data;
 
+    // Text Mesh UIs
     [SerializeField] private TextMeshProUGUI highScore;
     [SerializeField] private TextMeshProUGUI playCount;
-    [SerializeField] private TextMeshProUGUI gameOvers;
+    [SerializeField] private TextMeshProUGUI unalives;
 
-
-    void Start()
+    private void Awake()
     {
-        saveSystem = FindObjectOfType<SaveSystem>();
-        if (saveSystem == null)
+        // References
+        saveHandler = FindObjectOfType<GameStatisticsSaveHandler>();
+        if (saveHandler == null)
         {
             Debug.LogError("No Save System!");
             return;
         }
+    }
 
-        data = saveSystem.Load();
+    void Start()
+    {
+        data = saveHandler.Load();
 
         if (data != null)
         {
-            highScore.text = "High Score: " + data.highScore;
+            highScore.text = "High Score: " + data.hiscore;
             playCount.text = "Plays: " + data.playCount;
-            gameOvers.text = "Unalives: " + data.deaths;
+            unalives.text = "Unalives: " + data.unalives;
         }
     }
 }

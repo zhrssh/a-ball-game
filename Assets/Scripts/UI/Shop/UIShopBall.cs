@@ -7,17 +7,18 @@ using UnityEngine.UI;
 
 public class UIShopBall : MonoBehaviour
 {
-    [SerializeField] private UIShopNavigation shopBallNavigation;
+    // Handles UI bar selection
     [SerializeField] private Transform navigationBar;
     [SerializeField] private Vector3 offset;
     [SerializeField] private float speed;
 
+    // Displays ball ability
     [SerializeField] private TextMeshProUGUI abilityText;
 
-    [SerializeField] private UIShopBuyOrEquip shopBallBuyAndEquip;
-
-    private GameSystemSaveHandler playerSave;
-    private SaveData data;
+    // References
+    private GameSystemShop shop;
+    private UIShopNavigation shopBallNavigation;
+    private UIShopBuyOrEquip shopBallBuyAndEquip;
 
     public enum Ability
     {
@@ -38,6 +39,7 @@ public class UIShopBall : MonoBehaviour
         } 
     }
 
+    // Ball Properties
     [SerializeField] private bool isDefault;
     [SerializeField] private int id;
     [SerializeField] private int price;
@@ -45,38 +47,38 @@ public class UIShopBall : MonoBehaviour
 
     private bool isBought;
 
+    private void Awake()
+    {
+        // References
+        shopBallBuyAndEquip = GameObject.FindObjectOfType<UIShopBuyOrEquip>();
+        shopBallNavigation = GameObject.FindObjectOfType<UIShopNavigation>();
+        shop = GameObject.FindObjectOfType<GameSystemShop>();
+    }
+
     private void Start()
     {
-        playerSave = GameObject.FindObjectOfType<GameSystemSaveHandler>();
-        if (playerSave != null)
-            data = playerSave.Load();
-
         if (shopBallNavigation != null)
             shopBallNavigation.OnBallSelectedCallback += Select;
-
-        if (shopBallBuyAndEquip != null)
-            shopBallBuyAndEquip.OnButtonPressedCallback += Buy;
 
         if (isDefault == true)
         {
             isSelected = true;
             isBought = true;
         }
+
+        // Check if the ball is bought from shop
+        if (isDefault == false)
+            isBought = shop.IsBallBought(id);
     }
 
     private void Update()
     {
-        if (id == 1)
-            isBought = data.ball2;
-        if (id == 2)
-            isBought = data.ball3;
-        if (id == 3)
-            isBought = data.ball4;
-        if (id == 4)
-            isBought = data.ball5;
-
         if (isSelected)
         {
+            // Check if the ball is bought
+            if (isDefault == false)
+                isBought = shop.IsBallBought(id);
+
             // Move bar into position
             Vector3 pos = navigationBar.transform.position;
             Vector3 targetPos = transform.position + offset;
@@ -129,11 +131,6 @@ public class UIShopBall : MonoBehaviour
         return id;
     }
 
-    public bool IsDefault()
-    {
-        return isDefault;
-    }
-
     public bool IsBought()
     {
         return isBought;
@@ -153,14 +150,6 @@ public class UIShopBall : MonoBehaviour
         else
         {
             isSelected = false;
-        }
-    }
-
-    public void Buy(int id)
-    {
-        if (this.id == id)
-        {
-            isBought = true;
         }
     }
 }

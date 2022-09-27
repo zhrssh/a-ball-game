@@ -7,37 +7,27 @@ using TMPro;
 
 public class UIShopBuyOrEquip : MonoBehaviour
 {
-    public delegate void OnButtonPressed(int id);
-    public event OnButtonPressed OnButtonPressedCallback;
-
-    [SerializeField] private GameSystemShopCoinCount coinCount;
-
     [SerializeField] private TextMeshProUGUI buttonText;
-
-    private UIShopBall _currentSelectedBall;
-    public UIShopBall currentSelectedBall { get { return _currentSelectedBall; } }
-
     private int _currentEquippedBall;
-    public int currentEquippedBall { get { return _currentEquippedBall; } }
 
-    private List<int> _boughtItemsList;
-    public List<int> boughtItemsList { get { return _boughtItemsList; } }
+    // UI
+    private UIShopBall _currentSelectedBall;
 
-    private GameSystemSaveHandler playerSave;
-    private SaveData data;
-    private SaveSystem saveSystem;
+    // Game System Shop
+    private GameSystemShop shop;
+    private GameSystemShopCoinCount coinCount;
+
+    private void Awake()
+    {
+        // References
+        shop = GameObject.FindObjectOfType<GameSystemShop>();
+        coinCount = GameObject.FindObjectOfType<GameSystemShopCoinCount>();
+    }
 
     private void Start()
     {
-        _boughtItemsList = new List<int>();
-        playerSave = GameObject.FindObjectOfType<GameSystemSaveHandler>();
-        if (playerSave != null)
-            data = playerSave.Load();
-
-        saveSystem = GameObject.FindObjectOfType<SaveSystem>();
-        _currentEquippedBall = data.currentEquippedBall;
-
-        CheckBoughtItems();
+        if (shop != null)
+            _currentEquippedBall = shop.currentBallEquipped;
     }
 
     // Update is called once per frame
@@ -58,7 +48,7 @@ public class UIShopBuyOrEquip : MonoBehaviour
                 buttonText.text = "Equip";
             }
 
-            if (_currentSelectedBall.GetBallID() == currentEquippedBall)
+            if (_currentSelectedBall.GetBallID() == _currentEquippedBall)
             {
                 buttonText.text = "Equipped";
             }
@@ -70,44 +60,19 @@ public class UIShopBuyOrEquip : MonoBehaviour
     {
         if (coinCount.GetCoinCount() >= _currentSelectedBall.GetPrice() && _currentSelectedBall.IsBought() == false)
         {
-            if (OnButtonPressedCallback != null)
-                OnButtonPressedCallback.Invoke(_currentSelectedBall.GetBallID());
             coinCount.SubtractCoin(_currentSelectedBall.GetPrice());
-            _currentEquippedBall = _currentSelectedBall.GetBallID();
-
-            CheckBoughtItems();
+            shop.Buy(_currentSelectedBall.GetBallID());
+            shop.Equip(_currentSelectedBall.GetBallID());
         }
         else if (_currentSelectedBall.IsBought() == true)
         {
+            shop.Equip(_currentSelectedBall.GetBallID());
             _currentEquippedBall = _currentSelectedBall.GetBallID();
-        }
-
-        // Saves whenever the player presses the button
-        if (playerSave != null)
-            playerSave.Save();
-        else
-        {
-            playerSave = GameObject.FindObjectOfType<GameSystemSaveHandler>();
-            playerSave.Save();
         }
     }
 
     public void SetCurrentBall(UIShopBall currentBall)
     {
         _currentSelectedBall = currentBall;
-    }
-
-    public void CheckBoughtItems()
-    {
-        UIShopBall[] balls = GameObject.FindObjectsOfType<UIShopBall>();
-
-        for (int i = 0; i < balls.Length; i++)
-        {
-            if (balls[i].IsBought() == true)
-            {
-                if (_boughtItemsList.Contains(balls[i].GetBallID()) == false)
-                    _boughtItemsList.Add(balls[i].GetBallID());
-            }
-        }
     }
 }

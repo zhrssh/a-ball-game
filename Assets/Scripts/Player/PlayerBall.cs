@@ -9,10 +9,10 @@ public class PlayerBall : MonoBehaviour
     // Get Current Equipped Ball from save
     [SerializeField] private List<UIShopBall> ballsList;
     [SerializeField] private List<GameSystemPowerUpData> powerUpsAvailable;
-    private SaveSystem saveSystem;
     private int currentBall;
 
-    private SaveData data;
+    // Save data
+    private GamePlayerSaveHandler saveHandler;
 
     // Apply Current Ball to player
     [SerializeField] private SpriteRenderer playerGFX;
@@ -21,17 +21,17 @@ public class PlayerBall : MonoBehaviour
     private GameSystemPowerUp gameSystemPowerUp;
     private GameSystemPowerUpData powerUpToApply;
 
+    private void Awake()
+    {
+        saveHandler = GameObject.FindObjectOfType<GamePlayerSaveHandler>();
+    }
 
     void Start()
     {
         // Gets the data from the save
-        saveSystem = GameObject.FindObjectOfType<SaveSystem>();
-        if (saveSystem != null)
-        {
-            data = saveSystem.Load();
-            if (data != null)
-                currentBall = data.currentEquippedBall;
-        }
+        if (saveHandler != null)
+            currentBall = saveHandler.playerData.currentBallEquipped;
+
 
         // Applies Player GFX
         if (playerGFX != null && ballsList.Count > 0)
@@ -97,3 +97,4 @@ public class PlayerBall : MonoBehaviour
         return null;
     }
 }
+

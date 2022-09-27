@@ -7,32 +7,33 @@ using DevZhrssh.Managers.Components;
 public class AdsHandler : MonoBehaviour
 {
     private AdsManager adsManager;
-    private GameSystemSaveHandler playerSaveHandler;
 
-    private PlayerDeathComponent playerDeathComponent;
+    // Checks if player has bought IAP
+    private GameSystemShop shop;
 
-    private int playCount;
+    // Checks if player has 5 death counts
+    private GameStatisticsSaveHandler gameStatistics;
+
     public bool showAds { get; private set; }
+
+    private void Awake()
+    {
+        // References
+        adsManager = AdsManager.Instance;
+        gameStatistics = GameObject.FindObjectOfType<GameStatisticsSaveHandler>();
+        shop = GameObject.FindObjectOfType<GameSystemShop>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        playerDeathComponent = GameObject.FindObjectOfType<PlayerDeathComponent>();
-        playerDeathComponent.onPlayerDeathCallback += PlayAdOnFifthDeath;
-
-        adsManager = AdsManager.Instance;
-
-        playerSaveHandler = GameObject.FindObjectOfType<GameSystemSaveHandler>();
-
-        playCount = playerSaveHandler.playCount;
-
-        showAds = playerSaveHandler.showAds;
+        showAds = shop.hasBoughtIAP;
     }
 
     public void PlayAdOnFifthDeath()
     {
         if (showAds == false) return;
-        if (playCount % 5 == 0 && playCount != 0)
+        if (gameStatistics.playCount % 5 == 0 && gameStatistics.playCount != 0)
         {
             adsManager.PlayAd();
         }
