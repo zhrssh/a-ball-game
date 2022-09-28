@@ -5,6 +5,7 @@ using UnityEngine;
 using DevZhrssh.Managers;
 using DevZhrssh.Managers.Components;
 using DevZhrssh.SaveSystem;
+using UnityEngine.UI;
 
 public class AdsReward : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class AdsReward : MonoBehaviour
 
     // Remove button when got rewards
     [SerializeField] private GameObject continueButton;
-    private bool hasRecentlyRewarded;
+    public bool hasRecentlyRewarded { get; private set; }
 
 
     [System.Serializable]
@@ -66,11 +67,21 @@ public class AdsReward : MonoBehaviour
         if (adsManager != null)
         {
             adsManager.onAdCompletedCallback += RewardPlayer;
+
+            // Disable continue button if there is no ads initialized
+            if (adsManager.isInitialized == false)
+                DisableButton();
         }
 
         // Get Rewards
         GetRewards();
         if (hasRecentlyRewarded == true)
+            DisableButton();
+    }
+
+    private void DisableButton()
+    {
+        if (continueButton != null)
             continueButton.SetActive(false);
     }
 

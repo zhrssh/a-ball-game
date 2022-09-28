@@ -37,6 +37,7 @@ public class GamePlayerSaveHandler : MonoBehaviour
             if (_playerData == null)
             {
                 _playerData = new PlayerData();
+                saveSystem.Save(_playerData, "playerdata");
             }
         }
     }

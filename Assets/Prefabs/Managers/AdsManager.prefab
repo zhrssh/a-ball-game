@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6999318368143224401}
   - component: {fileID: 6999318368143224400}
   - component: {fileID: 1321388464}
+  - component: {fileID: 1750492423}
   m_Layer: 0
   m_Name: AdsManager
   m_TagString: Untagged
@@ -45,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bannerPosition: 4
-  isTestMode: 1
 --- !u!114 &1321388464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,3 +58,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 964d052ed9f701a478c2eb3765f11bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playButton: {fileID: 0}
+--- !u!114 &1750492423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999318368143224399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13111a39c053d9941ad876190f2a8e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpList:
+  - {fileID: 11400000, guid: 47b20ecec8af1f74c91aba67b41af72e, type: 2}
+  - {fileID: 11400000, guid: 8af8420a23a5dbd47870f0dd013140f8, type: 2}
+  - {fileID: 11400000, guid: 8fb3cfac86326814ca0f7c6cb3a99b88, type: 2}
+  - {fileID: 11400000, guid: d41b24e23461c1443bb4d8de3e58e1d4, type: 2}
+  continueButton: {fileID: 0}

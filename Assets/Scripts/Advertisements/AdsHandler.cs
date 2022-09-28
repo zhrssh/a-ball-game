@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using DevZhrssh.Managers;
-using DevZhrssh.Managers.Components;
+using UnityEngine.UI;
 
 public class AdsHandler : MonoBehaviour
 {
+    // Managers
+    private GameManager gameManager;
     private AdsManager adsManager;
+    private AdsReward adsReward;
 
     // Checks if player has bought IAP
     private GameSystemShop shop;
@@ -16,31 +20,55 @@ public class AdsHandler : MonoBehaviour
 
     public bool showAds { get; private set; }
 
+    // Disable play button temporarily when play ad is called
+    [SerializeField] private Button playButton;
+
     private void Awake()
     {
         // References
+        gameManager = GameObject.FindObjectOfType<GameManager>();
         adsManager = AdsManager.Instance;
         gameStatistics = GameObject.FindObjectOfType<GameStatisticsSaveHandler>();
         shop = GameObject.FindObjectOfType<GameSystemShop>();
+        adsReward = GameObject.FindObjectOfType<AdsReward>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        showAds = shop.hasBoughtIAP;
+        // If player has not bought IAP, we show ads
+        showAds = (shop.hasBoughtIAP == true) ? false : true;
+
+        if (gameManager != null)
+            gameManager.onGameEndCallback += PlayAdOnFifthDeath;
+
+        if (adsManager != null)
+        {
+            adsManager.onAdLoadStartCallback += DisablePlayButton;
+            adsManager.onAdLoadEndCallback += EnablePlayButton;
+        }    
     }
 
     public void PlayAdOnFifthDeath()
     {
-        if (showAds == false) return;
-        if (gameStatistics.playCount % 5 == 0 && gameStatistics.playCount != 0)
+        if (showAds == true)
         {
-            adsManager.PlayAd();
+            if (gameStatistics.playCount % 5 == 0 && gameStatistics.playCount != 0 && adsReward.hasRecentlyRewarded == false)
+            {
+                adsManager.PlayAd();
+            }
         }
     }
 
-    public void RemoveAds()
+    private void EnablePlayButton()
     {
-        showAds = false;
+        if (playButton != null)
+            playButton.interactable = true;
+    }
+
+    private void DisablePlayButton()
+    {
+        if (playButton != null)
+            playButton.interactable = false;
     }
 }

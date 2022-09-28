@@ -67,10 +67,14 @@ public class GameSystemPowerUp : MonoBehaviour
         if (comboSystem == null)
             comboSystem = GameObject.FindObjectOfType<GameSystemCombo>();
         
-        comboSystem.comboMultiplier = 2;
+        if (comboSystem != null)
+            comboSystem.comboMultiplier = 2;
 
-        // Displays powerup
-        powerUpDisplay.DisplayPowerup(powerUp.name);
+/*        // Displays powerup
+        if (powerUpDisplay == null)
+            powerUpDisplay = GameObject.FindObjectOfType<GameSystemPowerUpDisplay>();
+
+        powerUpDisplay.DisplayPowerup(powerUp.name);*/
 
         // If is a default powerup
         if (powerUp.duration == -1)
@@ -78,8 +82,8 @@ public class GameSystemPowerUp : MonoBehaviour
 
         yield return new WaitForSeconds(powerUp.duration);
 
-        // Hides powerup
-        powerUpDisplay.HidePowerup(powerUp.name);
+/*        // Hides powerup
+        powerUpDisplay.HidePowerup(powerUp.name);*/
 
         if (comboSystem != null)
             comboSystem.comboMultiplier = 1;
@@ -92,8 +96,9 @@ public class GameSystemPowerUp : MonoBehaviour
     {
         if (coinCount == null)
             coinCount = GameObject.FindObjectOfType<GameSystemShopCoinCount>();
-        
-        coinCount.SetMultiplier(2);
+
+        if (coinCount != null)
+            coinCount.SetMultiplier(2);
 
         // If is a default powerup
         if (powerUp.duration == -1)
@@ -114,20 +119,22 @@ public class GameSystemPowerUp : MonoBehaviour
         if (player == null)
             player = GameObject.FindObjectOfType<Player>();
 
-        player.isInvulnerable = true;
+        if (player != null)
+            player.isInvulnerable = true;
 
         // Displays powerup
-        if (powerUpDisplay == null)
+/*        if (powerUpDisplay == null)
             powerUpDisplay = GameObject.FindObjectOfType<GameSystemPowerUpDisplay>();
 
-        powerUpDisplay.DisplayPowerup(powerUp.name);
+        powerUpDisplay.DisplayPowerup(powerUp.name);*/
 
         yield return new WaitForSeconds(powerUp.duration);
 
-        // Hides powerup
-        powerUpDisplay.HidePowerup(powerUp.name);
+/*       // Hides powerup
+            powerUpDisplay.HidePowerup(powerUp.name);*/
 
-        player.isInvulnerable = false;
+        if (player != null)
+            player.isInvulnerable = false;
 
         // When time runs out we remove it from list
         powerUps.Remove(powerUp.name);
@@ -137,11 +144,11 @@ public class GameSystemPowerUp : MonoBehaviour
     {
         float time = (powerUp.duration == -1) ? 999999 : powerUp.duration;
 
-        // Displays powerup
+/*        // Displays powerup
         if (powerUpDisplay == null)
             powerUpDisplay = GameObject.FindObjectOfType<GameSystemPowerUpDisplay>();
 
-        powerUpDisplay.DisplayPowerup(powerUp.name);
+        powerUpDisplay.DisplayPowerup(powerUp.name);*/
 
         // Allows rockets to spawn when the effect is still in duration
         if (player == null)
@@ -189,8 +196,8 @@ public class GameSystemPowerUp : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        // Hides powerup
-        powerUpDisplay.HidePowerup(powerUp.name);
+/*        // Hides powerup
+        powerUpDisplay.HidePowerup(powerUp.name);*/
 
         // After executing we remove it from list
         powerUps.Remove(powerUp.name);
@@ -209,7 +216,7 @@ public class GameSystemPowerUp : MonoBehaviour
 
     private IEnumerator DisableControls(GameSystemPowerUpData powerUp)
     {
-        // Disable Controls
+        // Disable Controls 
         debuffBorder.SetActive(true);
         playerController.isControlEnabled = false;
 
