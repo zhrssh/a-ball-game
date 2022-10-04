@@ -37,8 +37,17 @@ namespace DevZhrssh.Managers
         public delegate void OnAdLoadEnd();
         public event OnAdLoadEnd onAdLoadEndCallback;
 
+        // Check if there are ads loading
+        public bool isAdLoading { get; private set; }
+
         // Check if ads are initialized
         public bool isInitialized { get { return Advertisement.isInitialized; } }
+
+        private void Awake()
+        {
+            onAdLoadStartCallback += OnLoadAdsStarted;
+            onAdLoadEndCallback += OnLoadAdsCompleted;
+        }
 
         private void Start()
         {
@@ -56,8 +65,21 @@ namespace DevZhrssh.Managers
             Advertisement.Initialize(gameId, isTestMode, this); // Android ID
         }
 
+        private void OnLoadAdsStarted()
+        {
+            isAdLoading = true;
+        }
+
+        private void OnLoadAdsCompleted()
+        {
+            isAdLoading = false;
+        }
+
         public void PlayAd()
         {
+            // Checks if the ad is initialized
+            if (Advertisement.isInitialized == false) return;
+
             // Call all functions
             if (onAdLoadStartCallback != null)
                 onAdLoadStartCallback.Invoke();
@@ -69,6 +91,9 @@ namespace DevZhrssh.Managers
 
         public void PlayRewardedAd()
         {
+            // Checks if the ad is initialized
+            if (Advertisement.isInitialized == false) return;
+
             // Call all functions
             if (onAdLoadStartCallback != null)
                 onAdLoadStartCallback.Invoke();

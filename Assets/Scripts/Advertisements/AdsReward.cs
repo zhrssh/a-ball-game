@@ -32,6 +32,7 @@ public class AdsReward : MonoBehaviour
 
     // Remove button when got rewards
     [SerializeField] private GameObject continueButton;
+
     public bool hasRecentlyRewarded { get; private set; }
 
 
